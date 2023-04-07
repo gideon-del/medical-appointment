@@ -1,7 +1,7 @@
 import Map from "./components/Map";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import UserProfile from "./pages/UserProfile";
+import MedicalProfile from "./pages/MedicalProfile";
 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       {/* <Map />
       <Signup />
       <Login /> */}
-      <UserProfile/>
+      <MedicalProfile/>
     </>
   );
   
