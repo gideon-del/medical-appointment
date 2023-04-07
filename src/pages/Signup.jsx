@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Signup = () => {
-  return (
-    <section>Signup</section>
-  )
-}
+  return <section className="bg-black">Signup</section>;
+};
 
-export default Signup
+export default Signup;
