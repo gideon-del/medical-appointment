@@ -6,8 +6,8 @@ import Login from "./pages/Login";
 function App() {
   return (
     <>
-      {/* <Map />
-      <Signup /> */}
+      <Map />
+      <Signup />
       <Login />
     </>
   );
