@@ -1,19 +1,16 @@
-import Map from "./components/Map";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import MedicalProfile from "./pages/MedicalProfile";
 
-
 function App() {
   return (
     <>
-      {/* <Map />
+      <Map />
       <Signup />
-      <Login /> */}
+      <Login />
       <MedicalProfile/>
     </>
   );
-  
 }
 
 export default App;

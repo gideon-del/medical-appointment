@@ -1,18 +1,18 @@
-import React from 'react'
-import Image from "../assets/authbg.png"
+import React from "react";
+import Image from "../assets/authbg.png";
 
 const Login = () => {
   return (
     <>
       <section className=" min-h-screen w-full">
-        <div className=" flex w-full ">
+        <div className=" flex  ">
           {/* left column container with form  */}
 
           <div
-            className=" min-h-screen flex flex-col 
-                    items-center justify-center marker:md:w-8/12"
+            className="  flex flex-col 
+                    items-center flex-1 px-5"
           >
-            <form>
+            <form className="flex flex-col gap-4 max-w-sm m-auto">
               <div className="text-center mb-6">
                 <h1 className="text-5xl font-medium py-2"> Welcome</h1>
                 <p className="text-2xl">Login to continue using the service</p>
@@ -65,8 +65,12 @@ const Login = () => {
           </div>
 
           {/* Right column container with background*/}
-          <div className="mb-12 hidden w-full md:block md:w-8/12 lg:w-6/12">
-            <img src={Image} className="w-full" alt="Phone image" />
+          <div className="hidden max-h-screen w-full md:block md:w-8/12 lg:w-6/12">
+            <img
+              src={Image}
+              className="w-full h-full object-cover"
+              alt="Phone image"
+            />
           </div>
         </div>
       </section>
@@ -74,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;
