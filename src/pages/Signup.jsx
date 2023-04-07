@@ -4,7 +4,7 @@ const Signup = () => {
   return (
     <>
       <section className="  w-full font-poppins">
-        <div className=" flex w-full min-h-screen items-center ml-auto ">
+        <div className=" flex min-h-screen items-center ml-auto flex-1 ">
           {/* left column container with form  */}
 
           <div className=" flex-1 px-6 md:px-0 ">
@@ -79,8 +79,12 @@ const Signup = () => {
           </div>
 
           {/* Right column container with background*/}
-          <div className="hidden w-full md:block flex-1 ">
-            <img src={Image} className="w-full" alt="Phone image" />
+          <div className="hidden max-h-screen md:block  flex-1 ">
+            <img
+              src={Image}
+              className=" object-cover w-full"
+              alt="Phone image"
+            />
           </div>
         </div>
       </section>
