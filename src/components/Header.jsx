@@ -41,7 +41,7 @@ const Header = () => {
             <li className="cursor-pointer">Appointments</li>
           </ul>
         </nav>
-        <div class="md:flex gap-2 hidden">
+        <div className="md:flex gap-2 hidden">
           <button className="bg-blue-800 text-white px-4 rounded-md py-2">
             Sign up
           </button>
