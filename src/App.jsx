@@ -1,14 +1,14 @@
 import Header from "./components/Header";
-import { appointment } from "./data/appointment";
-import AppointmentConfirmation from "./pages/AppointmentConfirmation";
-// import Appointment from "./pages/Appointment";
+
+import Profile from "./pages/Profile";
 
 function App() {
   return (
     <>
       <Header />
-      <AppointmentConfirmation appointment={appointment} />
-      {/* <Appointment /> */}
+
+      <Profile />
+
     </>
   );
 }
