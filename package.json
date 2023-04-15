@@ -17,6 +17,8 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
+
+    "react-select": "^5.7.2",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

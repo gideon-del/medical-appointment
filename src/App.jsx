@@ -1,7 +1,5 @@
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import MedicalProfile from "./pages/MedicalProfile";
 import Header from "./components/Header";
+
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -36,8 +34,10 @@ function App() {
   return (
     <>
       <Header />
+
       <RouterProvider router={router} />
       {showProfile && <MedicalProfile />}
+
     </>
   );
 }
