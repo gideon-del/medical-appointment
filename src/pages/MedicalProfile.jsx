@@ -1,10 +1,12 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const MedicalProfile = () => {
+  const { register, handleSubmit } = useForm();
   return (
     <>
       {/* Navbar */}
-      <div className="min-h-screen w-full">
+      <div className="min-h-screen w-screen inset-0 z-50 fixed dark:bg-black bg-white overflow-y-scroll">
         <div>
           <button className=" w-36 mt-2 text-xl py-2 px-2 text-white bg-[#0E63F4]  hover:bg-blue-700 rounded-lg absolute top-0 right-0 ...">
             Back
@@ -27,8 +29,9 @@ const MedicalProfile = () => {
               <input
                 className="w-full md:shadow appearance-none border rounded md:w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="fullName"
-                name="fullName"
-                type="text"
+                {...register("name", {
+                  required: true,
+                })}
                 placeholder="Full Name"
                 required
               />
@@ -44,8 +47,10 @@ const MedicalProfile = () => {
               <input
                 className="w-full md:shadow appearance-none border rounded md:w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="E-mail"
-                name="Email"
-                type="Email"
+                {...register("email", {
+                  required: true,
+                })}
+                type="email"
                 placeholder="you@example.com"
                 required
               />

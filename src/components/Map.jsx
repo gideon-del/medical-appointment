@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-
+const GMap = new GoogleMap();
 export default function Map() {
   const containerStyle = {
     width: "100%",
-    height: "400px",
+    height: "100vh",
   };
 
   const [userLocation, setUserLocation] = useState(null);
