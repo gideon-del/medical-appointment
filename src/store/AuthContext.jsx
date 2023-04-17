@@ -8,19 +8,25 @@ export const AuthContext = createContext({
   logout: () => {},
   showProfile: false,
   toggleProfile: () => {},
+  getProfile: () => {},
 });
 
 const AuthProvider = (props) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [profile, setProfile] = useState(null);
   const login = (cred) => {
     setUser(cred);
   };
   const logout = () => {
-    setUser({});
+    setUser(null);
+    setProfile(null);
   };
   const toggleProfile = () => {
     setShowProfile((prev) => !prev);
+  };
+  const getProfile = (prof) => {
+    setProfile(prof);
   };
   return (
     <AuthContext.Provider
@@ -30,6 +36,8 @@ const AuthProvider = (props) => {
         logout,
         showProfile,
         toggleProfile,
+        profile,
+        getProfile,
       }}
     >
       {props.children}

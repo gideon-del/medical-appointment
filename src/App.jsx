@@ -1,43 +1,37 @@
 import Header from "./components/Header";
-
-import Profile from "./pages/Profile";
-import Home from "./pages/Home";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-import Map from "./components/Map";
-import { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "./store/AuthContext";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    index: true,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
-  {
-    path: "signup",
-    element: <Signup />,
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "hospital",
-    element: <Map />,
-  },
-]);
+import NotAuthHeader from "./components/NotAuthHeader";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "./firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+
 function App() {
-  const { showProfile } = useContext(AuthContext);
+  const { user, login, logout, profile, getProfile } = useContext(AuthContext);
+  useEffect(() => {
+    const listener = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        login(user);
+        if (!profile) {
+          const prof = await getDoc(doc(db, "profile", user.uid));
+          getProfile(prof.data());
+          return;
+        }
+      } else {
+        logout();
+        return;
+      }
+    });
+    return () => {
+      listener();
+    };
+  }, []);
   return (
     <>
-      <Header />
+      {user ? <Header /> : <NotAuthHeader />}
 
-      <RouterProvider router={router} />
-      {showProfile && <MedicalProfile />}
-
+      <Outlet />
     </>
   );
 }
