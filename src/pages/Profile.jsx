@@ -1,12 +1,16 @@
 import { BiUserCircle, BiBody } from "react-icons/bi";
 import { AiTwotoneStar } from "react-icons/ai";
-import { BsCalendarMinusFill } from "react-icons/bs";
+import { BsCalendarMinusFill, BsGenderAmbiguous } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { MdBloodtype } from "react-icons/md";
+import { GiBodyHeight } from "react-icons/gi";
+import { useContext, useMemo } from "react";
+import { AuthContext } from "../store/AuthContext";
 
 function Appointments() {
   return (
-    <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-2xl drop-shadow-lg dark:border-2 dark:border-gray-400 ">
+    <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-md  dark:border-2 dark:border-gray-400 ">
       <div className="flex gap-8 items-center justify-between">
         <div className="text-2xl">
           <BiUserCircle />
@@ -32,12 +36,22 @@ function Appointments() {
 }
 
 const Profile = () => {
+  const { profile } = useContext(AuthContext);
+  const profileIcons = useMemo(
+    () => ({
+      heigth: <GiBodyHeight />,
+      weigth: <BiBody />,
+      gender: <BsGenderAmbiguous />,
+      bloodGroup: <MdBloodtype />,
+    }),
+    []
+  );
   return (
     <>
       <main className="font-poppins max-w-7xl mx-auto px-4 ">
         <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
           Good Morning, <br />
-          Paul 👋
+          {profile.name} 👋
         </h1>
         <section className="my-10 flex flex-col gap-4">
           <div className="flex items-center justify-center gap-3">
@@ -46,36 +60,20 @@ const Profile = () => {
               <FiEdit2 />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center content-center w-fit mx-auto gap-8">
-            <div className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500">
-              <div className="flex items-center gap-3">
-                <h3>Weight</h3>
+          <div className="grid md:grid-cols-2  lg:grid-cols-4 items-center justify-center content-center w-fit mx-auto gap-8">
+            {Object.keys(profileIcons).map((icon) => (
+              <div
+                className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500"
+                key={icon}
+              >
+                <div className="flex items-center gap-3 ">
+                  <h3 className="capitalize">{icon}</h3>
 
-                <BiBody />
+                  {profileIcons[icon]}
+                </div>
+                <span>{profile[icon]}</span>
               </div>
-              <span>23KG</span>
-            </div>
-            <div className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500">
-              <div className="flex items-center gap-3">
-                <h3>Weight</h3>
-                <BiBody />
-              </div>
-              <span>23KG</span>
-            </div>
-            <div className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500">
-              <div className="flex items-center gap-3">
-                <h3>Weight</h3>
-                <BiBody />
-              </div>
-              <span>23KG</span>
-            </div>
-            <div className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500">
-              <div className="flex items-center gap-3">
-                <h3>Weight</h3>
-                <BiBody />
-              </div>
-              <span>23KG</span>
-            </div>
+            ))}
           </div>
         </section>
         <section className="my-10 flex flex-col gap-4">
