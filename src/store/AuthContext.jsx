@@ -9,12 +9,17 @@ export const AuthContext = createContext({
   showProfile: false,
   toggleProfile: () => {},
   getProfile: () => {},
+  loading: false,
+  setLoading: () => {},
+  setAppointmets: () => {},
 });
 
 const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [appointments, setAppointmets] = useState([]);
   const login = (cred) => {
     setUser(cred);
   };
@@ -38,6 +43,10 @@ const AuthProvider = (props) => {
         toggleProfile,
         profile,
         getProfile,
+        loading,
+        setLoading,
+        appointments,
+        setAppointmets,
       }}
     >
       {props.children}

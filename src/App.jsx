@@ -6,22 +6,24 @@ import NotAuthHeader from "./components/NotAuthHeader";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import Spinner from "./components/Spinner";
 
 function App() {
-  const { user, login, logout, profile, getProfile } = useContext(AuthContext);
+  const { user, login, logout, profile, getProfile, setLoading, loading } =
+    useContext(AuthContext);
   useEffect(() => {
     const listener = onAuthStateChanged(auth, async (user) => {
+      setLoading(true);
       if (user) {
         login(user);
         if (!profile) {
           const prof = await getDoc(doc(db, "profile", user.uid));
           getProfile(prof.data());
-          return;
         }
       } else {
         logout();
-        return;
       }
+      setLoading(false);
     });
     return () => {
       listener();
@@ -30,7 +32,7 @@ function App() {
   return (
     <>
       {user ? <Header /> : <NotAuthHeader />}
-
+      {loading && <Spinner />}
       <Outlet />
     </>
   );

@@ -7,10 +7,10 @@ import { SignIn } from "../lib/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 const Login = () => {
-  const { user, login, getProfile } = useContext(AuthContext);
+  const { user, login, getProfile, loading, setLoading } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const [loaing, setLoaing] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
     if (user) {
@@ -19,7 +19,7 @@ const Login = () => {
   }, []);
   const signIn = async (data) => {
     try {
-      setLoaing(true);
+      setLoading(true);
       setError("");
       const { user } = await SignIn(data);
       login(user);
@@ -33,7 +33,7 @@ const Login = () => {
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
     }
-    setLoaing(false);
+    setLoading(false);
   };
   return (
     <>
@@ -98,7 +98,7 @@ const Login = () => {
               <button
                 type="submit"
                 className="w-full text-xl py-3 px-3 text-white bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 after:bg-gray-700 disabled:after:opacity-60 "
-                disabled={loaing}
+                disabled={loading}
               >
                 Login
               </button>

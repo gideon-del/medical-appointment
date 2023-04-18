@@ -6,11 +6,18 @@ import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 const MedicalProfile = () => {
   const { register, handleSubmit } = useForm();
-  const { user, getProfile, profile: prof } = useContext(AuthContext);
+  const {
+    user,
+    getProfile,
+    profile: prof,
+    setLoading,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const submit = async (data) => {
+    setLoading(true);
     await setDoc(doc(db, "profile", `${user?.uid}`), data);
     getProfile(data);
+    setLoading(false);
     navigate("/profile");
   };
 

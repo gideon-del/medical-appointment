@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import MedicalProfile from "./pages/MedicalProfile";
 import Login from "./pages/Login";
+import Appointment from "./pages/Appointment";
 import { RouterProvider } from "react-router-dom";
 import Map from "./components/Map";
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/edit",
         element: <MedicalProfile />,
+      },
+      {
+        path: "/book-appointment",
+        element: <Appointment />,
       },
     ],
   },

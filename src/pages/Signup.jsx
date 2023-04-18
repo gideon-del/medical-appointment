@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
-  const { toggleProfile, login, user } = useContext(AuthContext);
+  const { login, user, setLoading, loading } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const history = useNavigate();
   const submit = async (data) => {
     try {

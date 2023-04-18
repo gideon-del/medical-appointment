@@ -5,7 +5,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../store/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-const links = ["Home", "Profile", "Hospital", "Appointments"];
+const links = ["Home", "Profile", "Hospital",];
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const { logout } = useContext(AuthContext);

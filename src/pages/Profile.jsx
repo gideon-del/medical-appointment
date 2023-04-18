@@ -36,7 +36,7 @@ function Appointments() {
 }
 
 const Profile = () => {
-  const { profile } = useContext(AuthContext);
+  const { profile, loading, appointments } = useContext(AuthContext);
   const profileIcons = useMemo(
     () => ({
       heigth: <GiBodyHeight />,
@@ -46,54 +46,69 @@ const Profile = () => {
     }),
     []
   );
-  return (
-    <>
-      <main className="font-poppins max-w-7xl mx-auto px-4 ">
-        <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
-          Good Morning, <br />
-          {profile.name} 👋
-        </h1>
-        <section className="my-10 flex flex-col gap-4">
-          <div className="flex items-center justify-center gap-3">
-            <h2 className="font-medium text-center">Medical Profile </h2>
-            <Link to={"/edit"}>
-              <FiEdit2 />
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2  lg:grid-cols-4 items-center justify-center content-center w-fit mx-auto gap-8">
-            {Object.keys(profileIcons).map((icon) => (
-              <div
-                className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500"
-                key={icon}
-              >
-                <div className="flex items-center gap-3 ">
-                  <h3 className="capitalize">{icon}</h3>
+  if ((!loading && !profile) || !profile) {
+    return (
+      <Link to="/edit">
+        <button className="bg-blue-800 px-4 py-2 text-sm md:text-base">
+          {" "}
+          Create Medical profile
+        </button>
+      </Link>
+    );
+  } else {
+    return (
+      <>
+        <main className="font-poppins max-w-7xl mx-auto px-4 ">
+          <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
+            Good Morning, <br />
+            {profile?.name} 👋
+          </h1>
+          <section className="my-10 flex flex-col gap-4">
+            <div className="flex items-center justify-center gap-3">
+              <h2 className="font-medium text-center">Medical Profile </h2>
+              <Link to={"/edit"}>
+                <FiEdit2 />
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-2  lg:grid-cols-4 items-center justify-center content-center w-fit mx-auto gap-8">
+              {Object.keys(profileIcons).map((icon) => (
+                <div
+                  className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500"
+                  key={icon}
+                >
+                  <div className="flex items-center gap-3 ">
+                    <h3 className="capitalize">{icon}</h3>
 
-                  {profileIcons[icon]}
+                    {profileIcons[icon]}
+                  </div>
+                  <span>{profile[icon]}</span>
                 </div>
-                <span>{profile[icon]}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="my-10 flex flex-col gap-4">
-          <h2 className="font-medium text-center">My Appointments </h2>
-          <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Appointments />
-            <Appointments />
-            <Appointments />
-            <Appointments />
-            <Appointments />
-            <Appointments />
+              ))}
+            </div>
           </section>
-        </section>
-        <section className="text-center">
-          <h1>Medical History</h1>
-          <p>You have no medical history</p>
-        </section>
-      </main>
-    </>
-  );
+          <section className="my-10 flex flex-col gap-4">
+            <h2 className="font-medium text-center">My Appointments </h2>
+            {appointments.length > 0 ? (
+              <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+                <Appointments />
+              </section>
+            ) : (
+              <p className="text-center">You have no current appointments</p>
+            )}
+            <Link to="/book-appointment" className="mx-auto">
+              <button className="bg-blue-800 rounded-md py-3 px-4 text-sm w-fit mx-auto md:text-base">
+                Book Appointment
+              </button>
+            </Link>
+          </section>
+          <section className="text-center">
+            <h1>Medical History</h1>
+            <p>You have no medical history</p>
+          </section>
+        </main>
+      </>
+    );
+  }
 };
 
 export default Profile;

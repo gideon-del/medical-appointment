@@ -57,11 +57,6 @@ const Appointment = () => {
   return (
     <>
       <section className="min-h-screen w-full">
-        <div>
-          <button className=" w-36 mt-20 ml-20 text-xl py-2 px-2 text-white bg-[#0E63F4]  hover:bg-blue-700 rounded-lg absolute top-12 right-0 ...">
-            Back
-          </button>
-        </div>
         <div className="text-center mt-20 md:mt-20">
           <h1 className="md:text-3xl text-2xl">Doctor Appointment Form</h1>
         </div>
@@ -120,7 +115,8 @@ const Appointment = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="state-select">
+                htmlFor="state-select"
+              >
                 Choose a state
               </label>
               <Select
@@ -142,7 +138,8 @@ const Appointment = () => {
                 <div className="flex gap-2">
                   <label
                     className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                    htmlFor="area-select">
+                    htmlFor="area-select"
+                  >
                     Select Area:
                   </label>
                   <Select
@@ -158,7 +155,8 @@ const Appointment = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="state-select">
+                htmlFor="state-select"
+              >
                 Which hostipal would you like to get an appointment from?
               </label>
               <Select
@@ -179,7 +177,8 @@ const Appointment = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="state-select">
+                htmlFor="state-select"
+              >
                 Which department would you like to get an appointment from?
               </label>
               <Select
@@ -200,14 +199,14 @@ const Appointment = () => {
             <div className=" mb-2 md:flex gap-12 mx-4">
               <label
                 className=" block md:inline text-gray-700 font-bold mb-2 "
-                htmlFor="appointment_details">
+                htmlFor="appointment_details"
+              >
                 Appointment details
               </label>
               <textarea
                 id="appointment_details"
-                rows="5"
-                cols="140"
-                className="md:shadow appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                className="md:shadow aspect-square appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full max-h-52"
+              ></textarea>
             </div>
             <div className="mb-4 md:flex gap-4">
               <p className="block md:inline text-gray-700 font-bold mb-2 mr-6">
@@ -241,7 +240,8 @@ const Appointment = () => {
           <div className="mx-4 my-2">
             <button
               className=" w-full bg-[#0E63F4]  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:w-full  md:mx-4 focus:outline-none focus:shadow-outline"
-              type="submit">
+              type="submit"
+            >
               Fix Appointment
             </button>
           </div>
