@@ -9,10 +9,11 @@ const InputBox = ({
 }) => {
   return (
     <>
-      <div className=" mb-2 md:flex gap-12 mx-4">
+      <div className=" mb-2 md:flex gap-12 ">
         <label
           className=" block md:inline text-gray-700 font-bold mb-2 "
-          htmlFor={label}>
+          htmlFor={label}
+        >
           {label}
         </label>
         <input

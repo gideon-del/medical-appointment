@@ -1,25 +1,41 @@
-const Selectss = ({ name, options }) => {
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import Select from "react-select";
+const Selects = ({
+  name,
+  options,
+  handleChange,
+  isLoading,
+  isClearable,
+  control,
+  selectedVal,
+  isSearchable,
+  placeholder,
+}) => {
   return (
     <>
-      <div className="mb-4 md:flex gap-4">
-        <label
-          className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-          htmlFor="{name}">
-          {name}
-        </label>
-        <select
-          className="w-full md:shadow appearance-none border rounded md:w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id={name}
-          name={name}
-          required>
-          <option value="">--Select--</option>
-          {options.map((option) => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </div>
+      <Controller
+        control={control}
+        name={name}
+        render={() => (
+          <Select
+            className="basic-single text-black"
+            classNamePrefix="select"
+            defaultValue={options[0]}
+            isLoading={isLoading}
+            isClearable={isClearable}
+            isSearchable={isSearchable}
+            name={name}
+            id={name}
+            options={options}
+            value={selectedVal}
+            onChange={handleChange}
+            placeholder={placeholder}
+          />
+        )}
+      />
     </>
   );
 };
 
-export default SelectBox;
+export default React.memo(Selects);

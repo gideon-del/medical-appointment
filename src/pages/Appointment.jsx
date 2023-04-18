@@ -3,6 +3,8 @@ import Select from "react-select";
 import InputBox from "../components/shared/InputBox";
 import { hospital, medicalDepartment } from "../data/medical_department";
 import { stateOptions } from "../data/stateOptions";
+import Selectss from "../components/shared/Selectss";
+import { useForm } from "react-hook-form";
 
 // TODO::1. Medical department, hospital, specialist physician, date and time of appointment
 const Appointment = () => {
@@ -13,6 +15,7 @@ const Appointment = () => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
+  const { control, register, handleSubmit } = useForm();
   const handleStateChange = (option) => {
     const state = stateOptions.find((state) => state.value === option.value);
     setSelectedState(state);
@@ -47,11 +50,13 @@ const Appointment = () => {
       : [];
 
   const departmentSelectOptions = medicalDepartment.map((department) => ({
-    name: department.name,
+    value: department.name.toLowerCase(),
+    label: department.name,
   }));
 
   const hospitalSelectOptions = hospital.map((hospital) => ({
-    name: hospital.name,
+    value: hospital.name.toLowerCase(),
+    label: hospital.name,
   }));
 
   return (
@@ -119,19 +124,16 @@ const Appointment = () => {
               >
                 Choose a state
               </label>
-              <Select
-                className="basic-single"
-                classNamePrefix="select"
-                defaultValue={stateOptions[0]}
+              <Selectss
+                options={stateOptions}
                 isLoading={isLoading}
                 isClearable={isClearable}
                 isSearchable={isSearchable}
-                name="state-select"
-                id="state-select"
-                // options={stateOptions}
-                options={stateSelectOptions}
-                value={selectedState}
-                onChange={handleStateChange}
+                name="state"
+                id="state"
+                control={control}
+                selectedVal={selectedState}
+                handleChange={handleStateChange}
                 placeholder="Choose a state..."
               />
               {selectedState && (
@@ -160,7 +162,7 @@ const Appointment = () => {
                 Which hostipal would you like to get an appointment from?
               </label>
               <Select
-                className="basic-single"
+                className="basic-single text-black"
                 classNamePrefix="select"
                 defaultValue={hospital[0]}
                 isLoading={isLoading}
@@ -182,7 +184,7 @@ const Appointment = () => {
                 Which department would you like to get an appointment from?
               </label>
               <Select
-                className="basic-single"
+                className="basic-single text-black"
                 classNamePrefix="select"
                 defaultValue={medicalDepartment[0]}
                 isLoading={isLoading}
@@ -196,7 +198,7 @@ const Appointment = () => {
                 placeholder="Choose a medical department..."
               />
             </div>
-            <div className=" mb-2 md:flex gap-12 mx-4">
+            <div className=" mb-2 md:flex gap-12 ">
               <label
                 className=" block md:inline text-gray-700 font-bold mb-2 "
                 htmlFor="appointment_details"
