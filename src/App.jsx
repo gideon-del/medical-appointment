@@ -1,4 +1,7 @@
 import Header from "./components/Header";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+
 
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
@@ -6,6 +9,8 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Map from "./components/Map";
 import { useContext } from "react";
 import { AuthContext } from "./store/AuthContext";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,7 +38,8 @@ function App() {
   const { showProfile } = useContext(AuthContext);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+    
 
       <RouterProvider router={router} />
       {showProfile && <MedicalProfile />}

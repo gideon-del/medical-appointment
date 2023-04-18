@@ -8,10 +8,7 @@ const Login = () => {
         <div className=" flex  ">
           {/* left column container with form  */}
 
-          <div
-            className="  flex flex-col 
-                    items-center flex-1 px-5"
-          >
+          <div className="  flex flex-col items-center flex-1 px-5">
             <form className="flex flex-col gap-4 max-w-sm m-auto">
               <div className="text-center mb-6">
                 <h1 className="text-5xl font-medium py-2"> Welcome</h1>
