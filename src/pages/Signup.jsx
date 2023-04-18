@@ -2,16 +2,32 @@ import { useForm } from "react-hook-form";
 import Image from "../assets/authbg.png";
 import { SignUp } from "../lib/auth";
 import { AuthContext, useAuth } from "../store/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
-  const { toggleProfile } = useContext(AuthContext);
+  const { login, user, setLoading, loading } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const history = useNavigate();
   const submit = async (data) => {
-    const id = await SignUp({ email: data.email, password: data.password });
-    toggleProfile();
-    reset();
+    try {
+      setLoading(true);
+      const id = await SignUp({ email: data.email, password: data.password });
+      login(id.user);
+      reset();
+
+      history("/edit");
+    } catch (error) {
+      setError(error.message.split("Firebase: Error").join(""));
+    }
+    setLoading(false);
   };
+  useEffect(() => {
+    if (user) {
+      history("/");
+    }
+  }, [user]);
   return (
     <>
       <section className=" w-full font-poppins">
@@ -86,10 +102,16 @@ const Signup = () => {
               </div>
               <button
                 type="submit"
-                className="w-full  py-2  text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg "
+                className="w-full  py-2  text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 disabled:after:opacity-60 after:bg-gray-700"
+                disabled={loading}
               >
                 Sign in
               </button>
+              {error && (
+                <p className="text-red-700 font-bold text-center w-full ">
+                  {error}
+                </p>
+              )}
               <p className="text-lg text-center  font-medium">
                 Already have an account? log in
               </p>
