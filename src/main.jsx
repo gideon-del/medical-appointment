@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Appointment from "./pages/Appointment";
 import { RouterProvider } from "react-router-dom";
 import Map from "./components/Map";
+import Hospital from "./pages/Hospital";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "hospital",
-        element: <Map />,
+        element: <Hospital />,
       },
       {
         path: "/signup",

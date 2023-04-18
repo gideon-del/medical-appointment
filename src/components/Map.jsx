@@ -7,6 +7,7 @@ const Map = () => {
   const [selectedHospital, setSelectedHospital] = useState(null)
   const apiKey = import.meta.env.VITE_MAP_API_KEY
 
+  console.log(selectedHospital)
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: apiKey,
     libraries: ['places']
@@ -60,7 +61,7 @@ const Map = () => {
   }
 
   return isLoaded ? (
-    <div className="h-screen">
+    <div className="h-[80vh]">
       <GoogleMap
         center={center}
         zoom={16}
@@ -92,10 +93,11 @@ const Map = () => {
 
         {selectedHospital && (
           <InfoWindow
+            className="bg-black"
             position={{ lat: selectedHospital.geometry.location.lat(), lng: selectedHospital.geometry.location.lng() }}
             onCloseClick={handleCloseInfoWindow}
           >
-            <div className="w-80">
+            <div className="w-80" onClick={() => {console.log("Hello")}}>
               <h3 className="text-lg font-medium text-black mt-2 truncate w-72">{selectedHospital.name}</h3>
               <p className="text-gray-500 mt-2">{selectedHospital.vicinity}</p>
             </div>
