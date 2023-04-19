@@ -5,6 +5,7 @@ import doc1 from "../assets/doc1.svg";
 import doc2 from "../assets/doc2.svg";
 import appointment from "../assets/appointment.svg";
 import icon from "../assets/icon.svg";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -157,6 +158,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
