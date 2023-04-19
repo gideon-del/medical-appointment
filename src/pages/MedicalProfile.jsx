@@ -4,6 +4,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../store/AuthContext";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import RequireAuth from "../components/RequireAuth";
 const MedicalProfile = () => {
   const { register, handleSubmit } = useForm();
   const {
@@ -22,7 +23,7 @@ const MedicalProfile = () => {
   };
 
   return (
-    <>
+    <RequireAuth>
       {/* Navbar */}
       <div className="min-h-screen w-screen inset-0 z-50 fixed dark:bg-black bg-white overflow-y-scroll">
         <div className="text-center mt-20 md:mt-20">
@@ -266,7 +267,7 @@ const MedicalProfile = () => {
           </div>
         </form>
       </div>
-    </>
+    </RequireAuth>
   );
 };
 

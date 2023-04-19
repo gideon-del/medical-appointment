@@ -3,7 +3,11 @@ import Image from "../assets/authbg.png";
 import { SignUp } from "../lib/auth";
 import { AuthContext, useAuth } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { taoster } from "../lib/toaster";
+import { setDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import AuthRoute from "../components/AuthRoute";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
@@ -15,11 +19,19 @@ const Signup = () => {
       setLoading(true);
       const id = await SignUp({ email: data.email, password: data.password });
       login(id.user);
+      await setDoc(doc(db, "appointments", user.uid), {
+        appointments: [],
+      });
+      taoster({ state: "success", message: "Welcome" });
       reset();
 
-      history("/edit");
+      setTimeout(() => history("/edit"), 500);
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
+      taoster({
+        state: "error",
+        message: error.message.split("Firebase: Error").join(""),
+      });
     }
     setLoading(false);
   };
@@ -29,7 +41,7 @@ const Signup = () => {
     }
   }, [user]);
   return (
-    <>
+    <AuthRoute>
       <section className=" w-full font-poppins">
         <div className=" flex min-h-screen items-center ml-auto flex-1 ">
           {/* left column container with form  */}
@@ -112,9 +124,9 @@ const Signup = () => {
                   {error}
                 </p>
               )}
-              <p className="text-lg text-center  font-medium">
+              <Link to="/login" className="text-lg text-center  font-medium">
                 Already have an account? log in
-              </p>
+              </Link>
             </form>
           </div>
 
@@ -128,7 +140,7 @@ const Signup = () => {
           </div>
         </div>
       </section>
-    </>
+    </AuthRoute>
   );
 };
 export default Signup;

@@ -7,10 +7,22 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Spinner from "./components/Spinner";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { getAppoitments } from "./lib/validation";
 
 function App() {
-  const { user, login, logout, profile, getProfile, setLoading, loading } =
-    useContext(AuthContext);
+  const {
+    user,
+    login,
+    logout,
+    profile,
+    getProfile,
+    setLoading,
+    loading,
+    appointments,
+    setAppointmets,
+  } = useContext(AuthContext);
   useEffect(() => {
     const listener = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
@@ -19,6 +31,10 @@ function App() {
         if (!profile) {
           const prof = await getDoc(doc(db, "profile", user.uid));
           getProfile(prof.data());
+        }
+        if (!appointments) {
+          const app = await getAppoitments(user.id);
+          setAppointmets(app);
         }
       } else {
         logout();
@@ -31,9 +47,20 @@ function App() {
   }, []);
   return (
     <>
-      {user ? <Header /> : <NotAuthHeader />}
-      {loading && <Spinner />}
+      <Header />
       <Outlet />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 }

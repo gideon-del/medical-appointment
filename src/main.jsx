@@ -4,15 +4,17 @@ import "./index.css";
 import App from "./App";
 import AuthProvider from "./store/AuthContext";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import Signup from "./pages/Signup";
-import MedicalProfile from "./pages/MedicalProfile";
-import Login from "./pages/Login";
-import Appointment from "./pages/Appointment";
 import { RouterProvider } from "react-router-dom";
-import Map from "./components/Map";
-import Hospital from "./pages/Hospital";
+import { Suspense } from "react";
+import Spinner from "./components/Spinner";
+const Home = React.lazy(() => import("./pages/Home"));
+const Login = React.lazy(() => import("./pages/Login"));
+const MedicalProfile = React.lazy(() => import("./pages/MedicalProfile"));
+const Hospital = React.lazy(() => import("./pages/Hospital"));
+const Appointment = React.lazy(() => import("./pages/Appointment"));
+const Signup = React.lazy(() => import("./pages/Signup"));
+const Profile = React.lazy(() => import("./pages/Profile"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,13 +48,19 @@ const router = createBrowserRouter([
         path: "/book-appointment",
         element: <Appointment />,
       },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <Suspense fallback={<Spinner />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </AuthProvider>
   </React.StrictMode>
 );

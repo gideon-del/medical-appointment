@@ -2,11 +2,12 @@ import { BiUserCircle, BiBody } from "react-icons/bi";
 import { AiTwotoneStar } from "react-icons/ai";
 import { BsCalendarMinusFill, BsGenderAmbiguous } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { MdBloodtype } from "react-icons/md";
 import { GiBodyHeight } from "react-icons/gi";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../store/AuthContext";
+import RequireAuth from "../components/RequireAuth";
 
 function Appointments() {
   return (
@@ -46,18 +47,12 @@ const Profile = () => {
     }),
     []
   );
-  if ((!loading && !profile) || !profile) {
-    return (
-      <Link to="/edit">
-        <button className="bg-blue-800 px-4 py-2 text-sm md:text-base">
-          {" "}
-          Create Medical profile
-        </button>
-      </Link>
-    );
+  const location = useLocation();
+  if (!loading && !profile) {
+    return <Navigate to="/edit" state={{ from: location }} replace />;
   } else {
     return (
-      <>
+      <RequireAuth>
         <main className="font-poppins max-w-7xl mx-auto px-4 ">
           <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
             Good Morning, <br />
@@ -106,7 +101,7 @@ const Profile = () => {
             <p>You have no medical history</p>
           </section>
         </main>
-      </>
+      </RequireAuth>
     );
   }
 };

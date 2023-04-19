@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import Image from "../assets/authbg.png";
-import { AuthContext } from "../store/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { AuthContext, useAuth } from "../store/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { SignIn } from "../lib/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { taoster } from "../lib/toaster";
+import AuthRoute from "../components/AuthRoute";
+import { getAppoitments } from "../lib/validation";
 const Login = () => {
-  const { user, login, getProfile, loading, setLoading } =
-    useContext(AuthContext);
+  const { user, login, getProfile, loading, setLoading, setAppointmets } =
+    useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
@@ -22,21 +25,29 @@ const Login = () => {
       setLoading(true);
       setError("");
       const { user } = await SignIn(data);
-      login(user);
+      const appoints = await getAppoitments(user.uid);
+      setAppointmets(appoints);
       const prof = await getDoc(doc(db, "profile", user.uid));
       if (!prof.data()) {
-        navigate("/edit");
+        login(user);
+        setTimeout(() => navigate("/edit"), 500);
         return;
       }
       getProfile(prof.data());
-      navigate("/profile");
+      login(user);
+      taoster({ state: "success", message: "Welcome back" });
+      setTimeout(() => navigate("/profile"), 500);
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
+      taoster({
+        state: "error",
+        message: error.message.split("Firebase: Error").join(""),
+      });
     }
     setLoading(false);
   };
   return (
-    <>
+    <AuthRoute>
       <section className=" min-h-screen w-full">
         <div className=" flex  ">
           {/* left column container with form  */}
@@ -92,9 +103,7 @@ const Login = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 w-full mr-3 py-5 px-4 h-2 mb-2 sm:text-sm rounded-lg "
                 />
               </div>
-              <p className="text-lg text-center font-light text-[#3757BC]">
-                Forget your Password
-              </p>
+
               <button
                 type="submit"
                 className="w-full text-xl py-3 px-3 text-white bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 after:bg-gray-700 disabled:after:opacity-60 "
@@ -103,9 +112,12 @@ const Login = () => {
                 Login
               </button>
               {error && <p className="text-red-600 font-bold">{error}</p>}
-              <p className="text-lg text-center font-light text-[#3757BC]">
+              <Link
+                to="/signup"
+                className="text-lg text-center font-light text-[#3757BC]"
+              >
                 No account with us yet? Sign up
-              </p>
+              </Link>
             </form>
           </div>
 
@@ -119,7 +131,7 @@ const Login = () => {
           </div>
         </div>
       </section>
-    </>
+    </AuthRoute>
   );
 };
 
