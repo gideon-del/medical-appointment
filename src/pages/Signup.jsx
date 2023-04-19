@@ -4,6 +4,7 @@ import { SignUp } from "../lib/auth";
 import { AuthContext, useAuth } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
@@ -40,13 +41,8 @@ const Signup = () => {
               onSubmit={handleSubmit(submit)}
             >
               <div className="text-center mb-6">
-                <h1 className="lg:text-5xl md:text-2xl text-xl font-bold py-2">
-                  {" "}
-                  Welcome
-                </h1>
-                <p className="lg:text-2xl md:text-xl text-lg font-medium">
-                  Sign up an account with us
-                </p>
+                <h1 className="text-5xl font-medium py-2"> Welcome</h1>
+                <p className="text-2xl">Create an account with us</p>
               </div>
 
               <div className="">
@@ -79,7 +75,7 @@ const Signup = () => {
                     pattern:
                       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   })}
-                  className="bg-gray-50 border border-gray-300 text-black  w-full mr-3 py-5 px-4 h-2 mb-2 text-sm rounded-lg "
+                  className="bg-gray-50 border border-gray-300 text-black w-full mr-3 py-5 px-4 h-2 mb-2 text-sm rounded-lg "
                   placeholder="Email address"
                   required
                 />
@@ -102,19 +98,19 @@ const Signup = () => {
               </div>
               <button
                 type="submit"
-                className="w-full  py-2  text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 disabled:after:opacity-60 after:bg-gray-700"
+                className="w-full mt-3 py-2 text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 disabled:after:opacity-60 after:bg-gray-700"
                 disabled={loading}
               >
-                Sign in
+                Sign up
               </button>
               {error && (
                 <p className="text-red-700 font-bold text-center w-full ">
                   {error}
                 </p>
               )}
-              <p className="text-lg text-center  font-medium">
+              <Link to="/login" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
                 Already have an account? log in
-              </p>
+              </Link>
             </form>
           </div>
 

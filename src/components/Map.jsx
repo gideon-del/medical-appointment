@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api'
 
 const Map = () => {
@@ -99,12 +100,13 @@ const Map = () => {
               <h3 className="text-lg font-medium text-black mt-2 truncate w-72">{selectedHospital.name}</h3>
               <p className="text-gray-500 mt-2">{selectedHospital.vicinity}</p>
               <div className="mt-2 flex justify-between items-center w-full">
-                <button 
-                  className="bg-green-500 text-white text-md py-2 px-4 rounded-lg hover:bg-green-600 w-full mr-2"
-                  onClick={() => {console.log("Hello World!")}}
-                >
-                  Select
-                </button>
+                  <Link
+                    to="/book-appointment"
+                    className="bg-green-500 text-white text-center text-md py-2 px-4 rounded-lg hover:bg-green-600 w-full mr-2"
+                    onClick={() => {console.log("Hello World!")}}
+                  >
+                    Select
+                  </Link>
                 <button 
                   className="bg-red-500 text-white text-md py-2 px-4 rounded-lg hover:bg-red-600 w-full ml-2" 
                   onClick={handleCloseInfoWindow}

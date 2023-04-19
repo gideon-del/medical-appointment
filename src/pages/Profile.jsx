@@ -39,8 +39,8 @@ const Profile = () => {
   const { profile, loading, appointments } = useContext(AuthContext);
   const profileIcons = useMemo(
     () => ({
-      heigth: <GiBodyHeight />,
-      weigth: <BiBody />,
+      height: <GiBodyHeight />,
+      weight: <BiBody />,
       gender: <BsGenderAmbiguous />,
       bloodGroup: <MdBloodtype />,
     }),
