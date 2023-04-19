@@ -64,7 +64,7 @@ const Signup = () => {
               <div className="">
                 <label
                   for="fullname"
-                  class="block mb-2 md:text-lg text-base font-medium "
+                  className="block mb-2 md:text-lg text-base font-medium "
                 >
                   Fullname
                 </label>
@@ -80,7 +80,7 @@ const Signup = () => {
               <div>
                 <label
                   for="Email"
-                  class="block mb-2 md:text-lg text-base font-medium "
+                  className="block mb-2 md:text-lg text-base font-medium "
                 >
                   Email address
                 </label>
@@ -99,7 +99,7 @@ const Signup = () => {
               <div>
                 <label
                   for="password"
-                  class="block mb-2 md:text-lg  text-base font-medium "
+                  className="block mb-2 md:text-lg  text-base font-medium "
                 >
                   Enter Password
                 </label>
