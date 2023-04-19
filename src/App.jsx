@@ -27,11 +27,11 @@ function App() {
     const listener = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
-        login(user);
         if (!profile) {
           const prof = await getDoc(doc(db, "profile", user.uid));
           getProfile(prof.data());
         }
+        login(user);
         if (!appointments) {
           const app = await getAppoitments(user.id);
           setAppointmets(app);

@@ -5,7 +5,7 @@ import { AuthContext, useAuth } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { taoster } from "../lib/toaster";
-import { setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import AuthRoute from "../components/AuthRoute";
 
