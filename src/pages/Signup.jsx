@@ -19,13 +19,13 @@ const Signup = () => {
       setLoading(true);
       const id = await SignUp({ email: data.email, password: data.password });
       login(id.user);
-      await setDoc(doc(db, "appointments", user.uid), {
+      await setDoc(doc(db, "appointments", id.user.uid), {
         appointments: [],
       });
       taoster({ state: "success", message: "Welcome" });
       reset();
 
-      setTimeout(() => history("/edit"), 500);
+      history("/edit");
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
       taoster({
@@ -61,25 +61,9 @@ const Signup = () => {
                 </p>
               </div>
 
-              <div className="">
-                <label
-                  for="fullname"
-                  className="block mb-2 md:text-lg text-base font-medium "
-                >
-                  Fullname
-                </label>
-                <input
-                  {...register("name", {
-                    required: true,
-                  })}
-                  className="bg-gray-50 border border-gray-300 text-black  w-full mr-3 py-5 px-4 h-2 mb-2 sm:text-sm rounded-lg "
-                  placeholder="Fullname"
-                  required
-                />
-              </div>
               <div>
                 <label
-                  for="Email"
+                  htmlFor="Email"
                   className="block mb-2 md:text-lg text-base font-medium "
                 >
                   Email address
@@ -98,12 +82,13 @@ const Signup = () => {
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 md:text-lg  text-base font-medium "
                 >
                   Enter Password
                 </label>
                 <input
+                  type="password"
                   {...register("password", {
                     required: true,
                     minLength: 8,
