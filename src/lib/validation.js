@@ -1,4 +1,4 @@
-import { getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
 export function validateAppoint(appoint) {
