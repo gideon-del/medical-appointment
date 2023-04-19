@@ -6,7 +6,9 @@ import docSearch from "../assets/docsearch.svg";
 
 const Services = () => {
   return (
-    <div className="mx-1 text-md px-10  md:h-72 md:mx-32 md:my-16  ">
+    <div
+      className="mx-1 text-[#0A1634] text-md px-10  md:h-72 md:mx-32 md:my-16  "
+    >
       <h1 className="text-center text-[#0E63F4]  text-2xl">Our Services</h1>
       <p className="text-center text-3xl md:text-4xl py-4">
         4 Easy steps to use our service
@@ -38,7 +40,7 @@ const Services = () => {
         </div>
         <div className=" md:h-52">
           <div className="flex justify-center">
-            <img src={calender} alt="" className="pb-2"/>
+            <img src={calender} alt="" className="pb-2" />
           </div>
           <p className=" text-center py-4 font-bold text-2xl lg:text-xl">
             Schedule Appointment
@@ -50,7 +52,7 @@ const Services = () => {
         </div>
         <div className="md:h-52">
           <div className="flex justify-center">
-            <img src={docSearch} alt=""  className=""/>
+            <img src={docSearch} alt="" className="" />
           </div>
           <p className=" text-center py-4 font-bold text-2xl lg:text-xl">
             Search Doctor
