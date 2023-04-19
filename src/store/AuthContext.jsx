@@ -26,6 +26,7 @@ const AuthProvider = (props) => {
   const logout = () => {
     setUser(null);
     setProfile(null);
+    setAppointmets([]);
   };
   const toggleProfile = () => {
     setShowProfile((prev) => !prev);

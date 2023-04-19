@@ -3,8 +3,11 @@ import Image from "../assets/authbg.png";
 import { SignUp } from "../lib/auth";
 import { AuthContext, useAuth } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { taoster } from "../lib/toaster";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import AuthRoute from "../components/AuthRoute";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
@@ -16,11 +19,19 @@ const Signup = () => {
       setLoading(true);
       const id = await SignUp({ email: data.email, password: data.password });
       login(id.user);
+      await setDoc(doc(db, "appointments", id.user.uid), {
+        appointments: [],
+      });
+      taoster({ state: "success", message: "Welcome" });
       reset();
 
       history("/edit");
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
+      taoster({
+        state: "error",
+        message: error.message.split("Firebase: Error").join(""),
+      });
     }
     setLoading(false);
   };
@@ -30,7 +41,7 @@ const Signup = () => {
     }
   }, [user]);
   return (
-    <>
+    <AuthRoute>
       <section className=" w-full font-poppins">
         <div className=" flex min-h-screen items-center ml-auto flex-1 ">
           {/* left column container with form  */}
@@ -45,26 +56,10 @@ const Signup = () => {
                 <p className="text-2xl">Create an account with us</p>
               </div>
 
-              <div className="">
-                <label
-                  for="fullname"
-                  class="block mb-2 md:text-lg text-base font-medium "
-                >
-                  Fullname
-                </label>
-                <input
-                  {...register("name", {
-                    required: true,
-                  })}
-                  className="bg-gray-50 border border-gray-300 text-black  w-full mr-3 py-5 px-4 h-2 mb-2 sm:text-sm rounded-lg "
-                  placeholder="Fullname"
-                  required
-                />
-              </div>
               <div>
                 <label
-                  for="Email"
-                  class="block mb-2 md:text-lg text-base font-medium "
+                  htmlFor="Email"
+                  className="block mb-2 md:text-lg text-base font-medium "
                 >
                   Email address
                 </label>
@@ -82,12 +77,13 @@ const Signup = () => {
               </div>
               <div>
                 <label
-                  for="password"
-                  class="block mb-2 md:text-lg  text-base font-medium "
+                  htmlFor="password"
+                  className="block mb-2 md:text-lg  text-base font-medium "
                 >
                   Enter Password
                 </label>
                 <input
+                  type="password"
                   {...register("password", {
                     required: true,
                     minLength: 8,
@@ -124,7 +120,7 @@ const Signup = () => {
           </div>
         </div>
       </section>
-    </>
+    </AuthRoute>
   );
 };
 export default Signup;

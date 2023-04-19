@@ -2,7 +2,7 @@ import React from "react";
 import search from "../assets/search.svg";
 import docProfile from "../assets/docProfile.svg";
 import calender from "../assets/calender.svg";
-import docSearch from "../assets/docsearch.svg";
+import docSearch from "../assets/docSearch.svg";
 
 const Services = () => {
   return (

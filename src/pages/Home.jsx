@@ -50,14 +50,14 @@ const Home = () => {
                 auctor.
               </p>
               <div className=" flex py-5">
-                <img src={icon} alt={icon} />
+                <img src={icon} alt={"Icon"} />
 
                 <p className="text-[#162D63] text-2xl md:text-3xl my-auto px-3">
                   PP is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
-                <img src={icon} alt={icon} />
+                <img src={icon} alt={"Icon"} />
                 <p className=" text-[#162D63] text-2xl md:text-3xl my-auto px-3 ">
                   Top searched specialty
                 </p>
@@ -99,7 +99,7 @@ const Home = () => {
                 auctor.
               </p>
               <div className=" flex py-5 items-center">
-                <img src={icon} alt="" icon />
+                <img src={icon} alt="" />
                 <p className="text-[#162D63] text-2xl md:text-3xl px-4">
                   PP is healthcare, but easy
                 </p>

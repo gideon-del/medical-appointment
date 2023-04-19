@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Image from "../assets/authbg.png";
-import { AuthContext } from "../store/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { AuthContext, useAuth } from "../store/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { SignIn } from "../lib/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { taoster } from "../lib/toaster";
+import AuthRoute from "../components/AuthRoute";
+import { getAppoitments } from "../lib/validation";
 const Login = () => {
-  const { user, login, getProfile, loading, setLoading } =
-    useContext(AuthContext);
+  const { user, login, getProfile, loading, setLoading, setAppointmets } =
+    useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
@@ -23,21 +26,29 @@ const Login = () => {
       setLoading(true);
       setError("");
       const { user } = await SignIn(data);
-      login(user);
+      const appoints = await getAppoitments(user.uid);
+      setAppointmets(appoints);
       const prof = await getDoc(doc(db, "profile", user.uid));
       if (!prof.data()) {
-        navigate("/edit");
+        login(user);
+        setTimeout(() => navigate("/edit"), 500);
         return;
       }
       getProfile(prof.data());
-      navigate("/profile");
+      login(user);
+      taoster({ state: "success", message: "Welcome back" });
+      setTimeout(() => navigate("/profile"), 500);
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
+      taoster({
+        state: "error",
+        message: error.message.split("Firebase: Error").join(""),
+      });
     }
     setLoading(false);
   };
   return (
-    <>
+    <AuthRoute>
       <section className=" w-full font-poppins">
         <div className=" flex min-h-screen items-center ml-auto flex-1 ">
           {/* left column container with form  */}
@@ -54,8 +65,8 @@ const Login = () => {
 
               <div>
                 <label
-                  for="Email"
-                  class="block mb-2 md:text-lg text-base font-medium "
+                  htmlFor="Email"
+                  className="block mb-2 text-xl  font-medium text-gray-900"
                 >
                   Email address
                 </label>
@@ -73,8 +84,8 @@ const Login = () => {
               </div>
               <div>
                 <label
-                  for="password"
-                  class="block mb-2 md:text-lg  text-base font-medium "
+                  htmlFor="password"
+                  className="block mb-2 text-xl  font-medium text-gray-900"
                 >
                   Enter Password
                 </label>
@@ -100,7 +111,7 @@ const Login = () => {
                 Login
               </button>
               {error && <p className="text-red-600 font-bold">{error}</p>}
-              <Link to="/login" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
+              <Link to="/signup" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
                 Don't have an account? Sign Up
               </Link>
             </form>
@@ -116,7 +127,7 @@ const Login = () => {
           </div>
         </div>
       </section>
-    </>
+    </AuthRoute>
   );
 };
 

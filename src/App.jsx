@@ -7,18 +7,34 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Spinner from "./components/Spinner";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { getAppoitments } from "./lib/validation";
 
 function App() {
-  const { user, login, logout, profile, getProfile, setLoading, loading } =
-    useContext(AuthContext);
+  const {
+    user,
+    login,
+    logout,
+    profile,
+    getProfile,
+    setLoading,
+    loading,
+    appointments,
+    setAppointmets,
+  } = useContext(AuthContext);
   useEffect(() => {
     const listener = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
-        login(user);
         if (!profile) {
           const prof = await getDoc(doc(db, "profile", user.uid));
           getProfile(prof.data());
+        }
+        login(user);
+        if (!appointments || appointments.length === 0) {
+          const app = await getAppoitments(user.uid);
+          setAppointmets(app);
         }
       } else {
         logout();
@@ -31,9 +47,23 @@ function App() {
   }, []);
   return (
     <>
-      {user ? <Header /> : <NotAuthHeader />}
       {loading && <Spinner />}
+      <Header />
       <Outlet />
+      <div className="z-[999999]">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+      </div>
     </>
   );
 }

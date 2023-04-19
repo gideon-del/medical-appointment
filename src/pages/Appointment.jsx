@@ -9,8 +9,11 @@ import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { validateAppoint } from "../lib/validation";
+import RequireAuth from "../components/RequireAuth";
+import { taoster } from "../lib/toaster";
+import { useEffect } from "react";
 // TODO::1. Medical department, hospital, specialist physician, date and time of appointment
 const Appointment = () => {
   const [isClearable, setIsClearable] = useState(true);
@@ -67,26 +70,36 @@ const Appointment = () => {
     label: hospital.name,
   }));
   if (appointments.length > 0) {
-    const restrict = validateAppoint(appointments[appointments.length - 1]);
-    console.log(restrict);
+    let canMakeAppointMent = validateAppoint(
+      appointments[appointments.length - 1]
+    );
+    if (!canMakeAppointMent) {
+      taoster({
+        state: "warning",
+        message: "You  must wait 15 Minute to make another appointment",
+      });
+      return <Navigate to="/profile" />;
+    }
   }
   const submitHandler = async (data) => {
-    const date = new Date();
-    const appointment = {
-      ...data,
-      createdAtDate: date.getTime(),
-    };
-    setLoading(true);
-    await setDoc(doc(db, "appointments", user.uid), {
-      appointments: [...appointments, appointment],
-    });
-    setAppointmets((prev) => [...prev, appointment]);
+    try {
+      const date = new Date();
+      const appointment = {
+        ...data,
+        createdAtDate: date.getTime(),
+      };
+      setLoading(true);
+      await setDoc(doc(db, "appointments", user.uid), {
+        appointments: [...appointments, appointment],
+      });
+      setAppointmets((prev) => [...prev, appointment]);
 
-    navigate("/profile");
-    setLoading(false);
+      navigate("/profile");
+      setLoading(false);
+    } catch (error) {}
   };
   return (
-    <>
+    <RequireAuth>
       <section className="min-h-screen w-full">
         <div className="text-center mt-20 md:mt-20">
           <h1 className="md:text-3xl text-2xl">Doctor Appointment Form</h1>
@@ -297,7 +310,7 @@ const Appointment = () => {
           </div>
         </form>
       </section>
-    </>
+    </RequireAuth>
   );
 };
 
