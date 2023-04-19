@@ -6,9 +6,7 @@ import docSearch from "../assets/docsearch.svg";
 
 const Services = () => {
   return (
-    <div
-      className="mx-1 text-[#0A1634] text-md px-10  md:h-72 md:mx-32 md:my-16  "
-    >
+    <div className="mx-1  text-[#0A1634] text-md px-10  md:h-72 md:mx-32 md:my-16  ">
       <h1 className="text-center text-[#0E63F4]  text-2xl">Our Services</h1>
       <p className="text-center text-3xl md:text-4xl py-4">
         4 Easy steps to use our service

@@ -10,6 +10,7 @@ import { AuthContext } from "../store/AuthContext";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { validateAppoint } from "../lib/validation";
 // TODO::1. Medical department, hospital, specialist physician, date and time of appointment
 const Appointment = () => {
   const [isClearable, setIsClearable] = useState(true);
@@ -65,17 +66,22 @@ const Appointment = () => {
     value: hospital.name.toLowerCase(),
     label: hospital.name,
   }));
+  if (appointments.length > 0) {
+    const restrict = validateAppoint(appointments[appointments.length - 1]);
+    console.log(restrict);
+  }
   const submitHandler = async (data) => {
     const date = new Date();
     const appointment = {
       ...data,
-      createdAtDate: date,
+      createdAtDate: date.getTime(),
     };
     setLoading(true);
     await setDoc(doc(db, "appointments", user.uid), {
       appointments: [...appointments, appointment],
     });
     setAppointmets((prev) => [...prev, appointment]);
+
     navigate("/profile");
     setLoading(false);
   };
@@ -158,7 +164,7 @@ const Appointment = () => {
                         value={areaSelectOptions.find(
                           (op) => op.value === value
                         )}
-                        onChange={(val) => onChange(val.value)}
+                        onChange={(val) => onChange(val.label)}
                         placeholder="Choose an area..."
                         ref={ref}
                       />
