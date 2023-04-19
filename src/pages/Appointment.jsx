@@ -4,8 +4,12 @@ import InputBox from "../components/shared/InputBox";
 import { hospital, medicalDepartment } from "../data/medical_department";
 import { stateOptions } from "../data/stateOptions";
 import Selectss from "../components/shared/Selectss";
-import { useForm } from "react-hook-form";
-
+import { Controller, useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../store/AuthContext";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 // TODO::1. Medical department, hospital, specialist physician, date and time of appointment
 const Appointment = () => {
   const [isClearable, setIsClearable] = useState(true);
@@ -16,6 +20,9 @@ const Appointment = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
   const { control, register, handleSubmit } = useForm();
+  const { setLoading, setAppointmets, user, appointments } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const handleStateChange = (option) => {
     const state = stateOptions.find((state) => state.value === option.value);
     setSelectedState(state);
@@ -58,7 +65,20 @@ const Appointment = () => {
     value: hospital.name.toLowerCase(),
     label: hospital.name,
   }));
-
+  const submitHandler = async (data) => {
+    const date = new Date();
+    const appointment = {
+      ...data,
+      createdAtDate: date,
+    };
+    setLoading(true);
+    await setDoc(doc(db, "appointments", user.uid), {
+      appointments: [...appointments, appointment],
+    });
+    setAppointmets((prev) => [...prev, appointment]);
+    navigate("/profile");
+    setLoading(false);
+  };
   return (
     <>
       <section className="min-h-screen w-full">
@@ -69,7 +89,10 @@ const Appointment = () => {
         <hr className="my-2" />
 
         {/* form to handle the request for appointment */}
-        <form className="md:px-8 md:py-8">
+        <form
+          className="md:px-8 md:py-8"
+          onSubmit={handleSubmit(submitHandler)}
+        >
           <div className="grid grid-cols-1 mx-4 md:border border-4-[#0E63F4] rounded gap-8 md:px-8 md:py-8">
             <InputBox
               width={"full"}
@@ -78,44 +101,23 @@ const Appointment = () => {
               type={"date"}
               placeholder={"Enter your full name"}
               isRequired={true}
+              register={register}
             />
             <div className="mb-4 md:flex gap-4">
-              <p className="block md:inline text-gray-700 font-bold mb-2 mr-6">
-                Time Interval
-              </p>
-              <input
-                type="radio"
-                id="morning"
-                name="morning"
-                value="morning"
-                className="mx-2"
-              />
-              <label className="mx-2" htmlFor="Morning">
-                Morning
+              <label
+                htmlFor="time"
+                className="block md:inline text-gray-700 font-bold mb-2 mr-6"
+              >
+                Time
               </label>
-              <br />
               <input
-                type="radio"
-                id="afternoon"
-                name="afternoon"
-                value="afternoon"
-                className="mx-2"
+                type="time"
+                id="time"
+                {...register("time", {
+                  required: true,
+                })}
+                className="mx-2 text-black p-2"
               />
-              <label className="mx-2" htmlFor="Afternoon">
-                Afternoon
-              </label>
-              <br />
-              <input
-                type="radio"
-                id="evening"
-                name="evening"
-                value="evening"
-                className="mx-2"
-              />
-              <label className="mx-2" htmlFor="Evening">
-                Evening
-              </label>
-              <br />
             </div>
             <div className="mb-4 md:flex gap-4">
               <label
@@ -144,12 +146,26 @@ const Appointment = () => {
                   >
                     Select Area:
                   </label>
-                  <Select
-                    id="area-select"
-                    options={areaSelectOptions}
-                    value={selectedArea}
-                    onChange={handleAreaChange}
-                    placeholder="Choose an area..."
+                  <Controller
+                    control={control}
+                    name="area"
+                    defaultValue={areaSelectOptions[0]}
+                    render={({ field: { onChange, value, ref } }) => (
+                      <Select
+                        className="text-black"
+                        id="area-select"
+                        options={areaSelectOptions}
+                        value={areaSelectOptions.find(
+                          (op) => op.value === value
+                        )}
+                        onChange={(val) => onChange(val.value)}
+                        placeholder="Choose an area..."
+                        ref={ref}
+                      />
+                    )}
+                    rules={{
+                      required: true,
+                    }}
                   />
                 </div>
               )}
@@ -161,19 +177,30 @@ const Appointment = () => {
               >
                 Which hostipal would you like to get an appointment from?
               </label>
-              <Select
-                className="basic-single text-black"
-                classNamePrefix="select"
-                defaultValue={hospital[0]}
-                isLoading={isLoading}
-                isClearable={isClearable}
-                isSearchable={isSearchable}
-                name="hospital-select"
-                id="hospital-select"
-                options={hospitalSelectOptions}
-                value={selectedHospital}
-                onChange={handleHospitalChange}
-                placeholder="Choose a hospital..."
+              <Controller
+                name="hospital"
+                control={control}
+                render={({ field: { name, value, onChange, ref } }) => (
+                  <Select
+                    className="basic-single text-black"
+                    classNamePrefix="select"
+                    isLoading={isLoading}
+                    isClearable={isClearable}
+                    isSearchable={isSearchable}
+                    id="hospital-select"
+                    options={hospitalSelectOptions}
+                    value={hospitalSelectOptions.find(
+                      (op) => op.value === value
+                    )}
+                    onChange={(val) => onChange(val.value)}
+                    placeholder="Choose a hospital..."
+                    ref={ref}
+                  />
+                )}
+                rules={{
+                  required: true,
+                }}
+                defaultValue={hospitalSelectOptions[0].value}
               />
             </div>
             <div className="mb-4 md:flex gap-4">
@@ -183,19 +210,31 @@ const Appointment = () => {
               >
                 Which department would you like to get an appointment from?
               </label>
-              <Select
-                className="basic-single text-black"
-                classNamePrefix="select"
-                defaultValue={medicalDepartment[0]}
-                isLoading={isLoading}
-                isClearable={isClearable}
-                isSearchable={isSearchable}
-                name="department-select"
-                id="department-select"
-                options={departmentSelectOptions}
-                value={selectedDepartment}
-                onChange={handleMedicalDepartmentChange}
-                placeholder="Choose a medical department..."
+
+              <Controller
+                name="department"
+                control={control}
+                render={({ field: { value, ref, onChange } }) => (
+                  <Select
+                    className="basic-single text-black"
+                    classNamePrefix="select"
+                    isLoading={isLoading}
+                    isClearable={isClearable}
+                    isSearchable={isSearchable}
+                    ref={ref}
+                    id="department-select"
+                    options={departmentSelectOptions}
+                    value={departmentSelectOptions.find(
+                      (dep) => dep.value === value
+                    )}
+                    onChange={(val) => onChange(val.value)}
+                    placeholder="Choose a medical department..."
+                  />
+                )}
+                defaultValue={""}
+                rules={{
+                  required: true,
+                }}
               />
             </div>
             <div className=" mb-2 md:flex gap-12 ">
@@ -203,11 +242,15 @@ const Appointment = () => {
                 className=" block md:inline text-gray-700 font-bold mb-2 "
                 htmlFor="appointment_details"
               >
-                Appointment details
+                Can you tell us how you feel
               </label>
               <textarea
                 id="appointment_details"
                 className="md:shadow aspect-square appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full max-h-52"
+                {...register("reason", {
+                  required: true,
+                })}
+                required={true}
               ></textarea>
             </div>
             <div className="mb-4 md:flex gap-4">
@@ -217,9 +260,11 @@ const Appointment = () => {
               <input
                 type="radio"
                 id="yes"
-                name="yes"
                 value="yes"
                 className="mx-2"
+                {...register("reschedule", {
+                  required: true,
+                })}
               />
               <label className="mx-2" htmlFor="yes">
                 Yes
@@ -228,7 +273,9 @@ const Appointment = () => {
               <input
                 type="radio"
                 id="no"
-                name="no"
+                {...register("reschedule", {
+                  required: true,
+                })}
                 value="no"
                 className="mx-2"
               />

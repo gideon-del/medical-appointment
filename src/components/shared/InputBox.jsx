@@ -6,6 +6,7 @@ const InputBox = ({
   type,
   placeholder,
   isRequired,
+  register,
 }) => {
   return (
     <>
@@ -23,6 +24,9 @@ const InputBox = ({
           type={type}
           placeholder={placeholder}
           required={isRequired ? true : false}
+          {...register("date", {
+            required: true,
+          })}
         />
       </div>
     </>

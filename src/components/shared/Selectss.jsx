@@ -17,7 +17,7 @@ const Selects = ({
       <Controller
         control={control}
         name={name}
-        render={() => (
+        render={({ field: { onChange, value, ref } }) => (
           <Select
             className="basic-single text-black"
             classNamePrefix="select"
@@ -25,14 +25,21 @@ const Selects = ({
             isLoading={isLoading}
             isClearable={isClearable}
             isSearchable={isSearchable}
-            name={name}
             id={name}
             options={options}
-            value={selectedVal}
-            onChange={handleChange}
+            value={options.find((c) => c.value === value)}
+            onChange={(val) => {
+              handleChange(val);
+              return onChange(val.value);
+            }}
+            Inputref={ref}
             placeholder={placeholder}
           />
         )}
+        rules={{
+          required: true,
+        }}
+        defaultValue={""}
       />
     </>
   );
