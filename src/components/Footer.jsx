@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = ( ) => {
     return (
       <>
-        <footer aria-label="Site Footer" className="bg-white">
+        <footer aria-label="Site Footer" className="bg-white font-poppins">
           <div className="max-w-screen-xl px-4 py-16 mx-auto space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div>
@@ -225,7 +225,10 @@ const Footer = ( ) => {
                 <div>
                   <p className="font-medium text-[#0E63F4]">Helpful Links</p>
 
-                  <nav aria-label="Footer Navigation - Company" className="mt-6">
+                  <nav
+                    aria-label="Footer Navigation - Company"
+                    className="mt-6"
+                  >
                     <ul className="space-y-4 text-sm">
                       <li>
                         <a
