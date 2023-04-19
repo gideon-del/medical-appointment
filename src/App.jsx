@@ -32,8 +32,8 @@ function App() {
           getProfile(prof.data());
         }
         login(user);
-        if (!appointments) {
-          const app = await getAppoitments(user.id);
+        if (!appointments || appointments.length === 0) {
+          const app = await getAppoitments(user.uid);
           setAppointmets(app);
         }
       } else {

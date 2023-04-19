@@ -11,5 +11,5 @@ export function validateAppoint(appoint) {
 
 export async function getAppoitments(id) {
    const appointments = await getDoc(doc(db, 'appointments', id))
-   return appointments.data() || [] 
+   return appointments.data()?.appointments || [] 
 }
