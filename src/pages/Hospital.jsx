@@ -7,6 +7,7 @@ const Hospital = () => {
             <Map />
             <div>
                 Hello
+                
             </div>
         </div>
     )
