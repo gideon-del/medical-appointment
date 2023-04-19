@@ -90,10 +90,10 @@ const Appointment = () => {
 
         {/* form to handle the request for appointment */}
         <form
-          className="md:px-8 md:py-8"
+          className="md:px-8 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <div className="grid grid-cols-1 mx-4 md:border border-4-[#0E63F4] rounded gap-8 md:px-8 md:py-8">
+          <div className="flex flex-col w-fit max-auto rounded gap-8 ">
             <InputBox
               width={"full"}
               label={"Appointment date"}
@@ -103,10 +103,10 @@ const Appointment = () => {
               isRequired={true}
               register={register}
             />
-            <div className="mb-4 md:flex gap-4">
+            <div className="flex flex-col gap-0 max-w-sm">
               <label
                 htmlFor="time"
-                className="block md:inline text-gray-700 font-bold mb-2 mr-6"
+                className="block md:inline text-gray-700 font-bold "
               >
                 Time
               </label>
@@ -116,10 +116,10 @@ const Appointment = () => {
                 {...register("time", {
                   required: true,
                 })}
-                className="mx-2 text-black p-2"
+                className=" text-black p-2 max-w-md"
               />
             </div>
-            <div className="mb-4 md:flex gap-4">
+            <div className="flex flex-col gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
                 htmlFor="state-select"
@@ -139,7 +139,7 @@ const Appointment = () => {
                 placeholder="Choose a state..."
               />
               {selectedState && (
-                <div className="flex gap-2">
+                <div className="flex gap-4 flex-col">
                   <label
                     className="block md:inline text-gray-700 font-bold mb-2 mr-6"
                     htmlFor="area-select"
@@ -152,7 +152,7 @@ const Appointment = () => {
                     defaultValue={areaSelectOptions[0]}
                     render={({ field: { onChange, value, ref } }) => (
                       <Select
-                        className="text-black"
+                        className="text-black  max-w-md"
                         id="area-select"
                         options={areaSelectOptions}
                         value={areaSelectOptions.find(
@@ -170,7 +170,7 @@ const Appointment = () => {
                 </div>
               )}
             </div>
-            <div className="mb-4 md:flex gap-4">
+            <div className="flex flex-col gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
                 htmlFor="state-select"
@@ -180,9 +180,9 @@ const Appointment = () => {
               <Controller
                 name="hospital"
                 control={control}
-                render={({ field: { name, value, onChange, ref } }) => (
+                render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    className="basic-single text-black"
+                    className="basic-single text-black max-w-md"
                     classNamePrefix="select"
                     isLoading={isLoading}
                     isClearable={isClearable}
@@ -203,7 +203,7 @@ const Appointment = () => {
                 defaultValue={hospitalSelectOptions[0].value}
               />
             </div>
-            <div className="mb-4 md:flex gap-4">
+            <div className="flex flex-col gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
                 htmlFor="state-select"
@@ -216,7 +216,7 @@ const Appointment = () => {
                 control={control}
                 render={({ field: { value, ref, onChange } }) => (
                   <Select
-                    className="basic-single text-black"
+                    className="basic-single text-black max-w-md"
                     classNamePrefix="select"
                     isLoading={isLoading}
                     isClearable={isClearable}
@@ -237,7 +237,7 @@ const Appointment = () => {
                 }}
               />
             </div>
-            <div className=" mb-2 md:flex gap-12 ">
+            <div className=" flex gap-2 flex-col ">
               <label
                 className=" block md:inline text-gray-700 font-bold mb-2 "
                 htmlFor="appointment_details"
@@ -246,49 +246,44 @@ const Appointment = () => {
               </label>
               <textarea
                 id="appointment_details"
-                className="md:shadow aspect-square appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full max-h-52"
+                className="md:shadow aspect-square appearance-none border rounded max-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full max-h-52"
                 {...register("reason", {
                   required: true,
                 })}
                 required={true}
               ></textarea>
             </div>
-            <div className="mb-4 md:flex gap-4">
+            <div className="flex flex-col gap-4">
               <p className="block md:inline text-gray-700 font-bold mb-2 mr-6">
                 Would you agree to reschedule the appointment, if needed?
               </p>
-              <input
-                type="radio"
-                id="yes"
-                value="yes"
-                className="mx-2"
-                {...register("reschedule", {
-                  required: true,
-                })}
-              />
-              <label className="mx-2" htmlFor="yes">
-                Yes
-              </label>
-              <br />
-              <input
-                type="radio"
-                id="no"
-                {...register("reschedule", {
-                  required: true,
-                })}
-                value="no"
-                className="mx-2"
-              />
-              <label className="mx-2" htmlFor="no">
-                No
-              </label>
-
-              <br />
+              <div className="flex gap-4 items-center">
+                <input
+                  type="radio"
+                  id="yes"
+                  value="yes"
+                  {...register("reschedule", {
+                    required: true,
+                  })}
+                />
+                <label htmlFor="yes">Yes</label>
+              </div>
+              <div className="flex gap-4 items-center">
+                <input
+                  type="radio"
+                  id="no"
+                  {...register("reschedule", {
+                    required: true,
+                  })}
+                  value="no"
+                />
+                <label htmlFor="no">No</label>
+              </div>
             </div>
           </div>
           <div className="mx-4 my-2">
             <button
-              className=" w-full bg-[#0E63F4]  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:w-full  md:mx-4 focus:outline-none focus:shadow-outline"
+              className=" w-full bg-[#0E63F4]  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:w-full  md:mx-4 focus:outline-none focus:shadow-outline max-w-sm"
               type="submit"
             >
               Fix Appointment

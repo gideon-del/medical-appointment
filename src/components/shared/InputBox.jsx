@@ -10,15 +10,15 @@ const InputBox = ({
 }) => {
   return (
     <>
-      <div className=" mb-2 md:flex gap-12 ">
+      <div className=" flex flex-col gap-4 ">
         <label
-          className=" block md:inline text-gray-700 font-bold mb-2 "
+          className=" block md:inline text-gray-700 font-bold "
           htmlFor={label}
         >
           {label}
         </label>
         <input
-          className={`w-${width} md:shadow appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+          className={`w-full max-w-sm md:shadow appearance-none border rounded md:w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
           id={id}
           name={name}
           type={type}
