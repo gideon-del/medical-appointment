@@ -11,7 +11,7 @@ const Home = () => {
     <>
       <div className="w-full bg-slate-200 font-poppins">
         <div className="flex  px-10 py-20 md:px-20 md:py-24 gap-14 ">
-          <div className="text-center py-48 md:w-7/12 md:py-32 ">
+          <div className="text-center text-[#0A1634] py-48 md:w-7/12 md:py-32 ">
             <h1 className="text-4xl md:text-6xl ">Schedule Your</h1>
             <h1 className="text-4xl md:text-6xl ">Appointment</h1>
             <h1 className="text-4xl md:text-6xl pb-4">Now</h1>
@@ -33,11 +33,13 @@ const Home = () => {
               <h1 className="text-[#0E63F4] text-2xl   md:py-8 md:px-4">
                 Find Doctors
               </h1>
-              <h1 className=" text-xl md:text-4xl px-4 ">
+              <h1 className=" text-[#162D63] text-xl md:text-4xl px-4 ">
                 Consult a doctor anytime,
               </h1>
-              <h1 className="text-xl md:text-4xl px-4">anywhere by search</h1>
-              <p className="py-4 px-2 md:py-8 md:px-4">
+              <h1 className=" text-[#162D63] text-xl md:text-4xl px-4">
+                anywhere by search
+              </h1>
+              <p className=" text-[#7E87A1] py-4 px-2 md:py-8 md:px-4">
                 Vorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                 eu turpis molestie, dictum est a, mattis tellus. Sed dignissim,
                 metus nec fringilla accumsan, risus sem sollicitudin lacus, ut
@@ -49,13 +51,13 @@ const Home = () => {
               <div className=" flex py-5">
                 <img src={icon} alt={icon} />
 
-                <p className="text-2xl md:text-3xl my-auto px-3">
+                <p className="text-[#162D63] text-2xl md:text-3xl my-auto px-3">
                   PP is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
                 <img src={icon} alt={icon} />
-                <p className=" text-2xl md:text-3xl my-auto px-3 ">
+                <p className=" text-[#162D63] text-2xl md:text-3xl my-auto px-3 ">
                   Top searched specialty
                 </p>
               </div>
@@ -80,13 +82,13 @@ const Home = () => {
               <h1 className="text-[#0E63F4] text-2xl md:py-8 md:px-4">
                 BOOK AN APPOINTMENT
               </h1>
-              <h1 className="text-2xl pt-4 md:text-4xl md:px-4">
+              <h1 className="text-[#162D63] text-2xl pt-4 md:text-4xl md:px-4">
                 Book an appointment,
               </h1>
-              <h1 className="text-2xl pb-4 md:text-4xl md:px-4">
+              <h1 className="text-[#162D63] text-2xl pb-4 md:text-4xl md:px-4">
                 today, online
               </h1>
-              <p className="text-lg py-8 px-4">
+              <p className=" text-[#7E87A1] text-lg py-8 px-4">
                 Vorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                 eu turpis molestie, dictum est a, mattis tellus. Sed dignissim,
                 metus nec fringilla accumsan, risus sem sollicitudin lacus, ut
@@ -97,13 +99,13 @@ const Home = () => {
               </p>
               <div className=" flex py-5 items-center">
                 <img src={icon} alt="" icon />
-                <p className="text-2xl md:text-3xl px-4">
+                <p className="text-[#162D63] text-2xl md:text-3xl px-4">
                   PP is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
                 <img src={icon} alt="icon" />
-                <p className="text-2xl md:text-3xl px-4 ">
+                <p className="text-[#162D63] text-2xl md:text-3xl px-4 ">
                   Top searched specialty
                 </p>
               </div>
@@ -115,34 +117,34 @@ const Home = () => {
           </div>
           <div className="bg-[#FFFFFF] w-full items-center ">
             <div className=" h-98 text-center md:mx-28 md:my-16">
-              <h1 className="text-3xl font-bold md:text-6xl py-2">
+              <h1 className="text-[#071A48] text-3xl font-bold md:text-6xl py-2">
                 We are an employee benefit at
               </h1>
-              <h1 className="text-3xl font-bold md:text-6xl py-2">
+              <h1 className="text-[#071A48] text-3xl font-bold md:text-6xl py-2">
                 7000+ companies
               </h1>
-              <div className="flex flex-col gap-8 py-6 lg:flex justify-around lg:gap-12 items-center md:my-16">
-                <div className=" bg-[#FFF7EA] rounded-tr-2xl rounded-b-2xl px-auto py-8 w-72 h-68">
-                  <p className="text-3xl">850</p>
-                  <p>Verified Physicians</p>
-                  <p>Highly Verified</p>
+              <div className="gap-8 py-8 justify-around lg:flex lg:gap-12 items-center md:my-16">
+                <div className=" my-8 text-[#000000] bg-[#FFF7EA] rounded-tr-2xl rounded-b-2xl px-auto py-8 w-72 h-68">
+                  <p className=" font-bold text-3xl">850</p>
+                  <p className="font-medium">Verified Physicians</p>
+                  <p className="text-[#7E87A1]">Highly Verified</p>
                 </div>
-                <div className=" bg-[#ECF9FF] rounded-tr-2xl rounded-b-2xl px-8 py-8 w-72 h-68">
-                  <p className="text-3xl">300+</p>
-                  <p>Happy Customers</p>
-                  <p>Get their treatment</p>
+                <div className="my-8 text-[#000000] bg-[#ECF9FF] rounded-tr-2xl rounded-b-2xl px-8 py-8 w-72 h-68">
+                  <p className="font-bold text-3xl">300+</p>
+                  <p className="font-medium">Happy Customers</p>
+                  <p className="text-[#7E87A1]">Get their treatment</p>
                 </div>
-                <div className="bg-[#FFF1F1] rounded-tr-2xl rounded-b-2xl  px-8 py-8 w-72 h-68">
-                  <p className="text-3xl">98.4%</p>
-                  <p>Positive Feedbacks</p>
-                  <p>From our customers</p>
+                <div className="my-8 text-[#000000] bg-[#FFF1F1] rounded-tr-2xl rounded-b-2xl  px-8 py-8 w-72 h-68">
+                  <p className="font-bold text-3xl">98.4%</p>
+                  <p className="font-medium">Positive Feedbacks</p>
+                  <p className="text-[#7E87A1]">From our customers</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="mt-36 flex px-10 py-8 bg-[#ECF3FF] md:px-20 ">
             <div className="flex flex-col md:w-[100%] py-12  lg:py-52">
-              <h1 className="text-center text-2xl mb-4 ">
+              <h1 className="text-[#000000] text-center text-2xl mb-4 ">
                 Get started with PP today Book Appointment
               </h1>
               <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">

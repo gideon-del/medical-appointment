@@ -4,9 +4,9 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  /* body {
     @apply dark:bg-black dark:text-white;
-  }
+  } */
   .loader {
     @apply border-black dark:border-white;
     width: 48px;
