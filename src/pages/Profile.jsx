@@ -8,6 +8,7 @@ import { GiBodyHeight } from "react-icons/gi";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../store/AuthContext";
 import RequireAuth from "../components/RequireAuth";
+import { humanize } from "humanize";
 
 function Appointments() {
   return (
@@ -38,6 +39,31 @@ function Appointments() {
 
 const Profile = () => {
   const { profile, loading, appointments } = useContext(AuthContext);
+  function convertUnixTimestamp(unixTimestamp) {
+    const dateObj = new Date(unixTimestamp * 1000);
+    const month = dateObj.toLocaleString('default', { month: 'short' });
+    const day = dateObj.toLocaleString('default', { day: 'numeric' });
+    const year = dateObj.toLocaleString('default', { year: 'numeric' });
+    const suffix = getOrdinalSuffix(day);
+    return `${month} ${day}${suffix}, ${year}`;
+  }
+  
+  function getOrdinalSuffix(day) {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    } else {
+      const lastDigit = day % 10;
+      switch (lastDigit) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+      }
+    }
+  }  
+  
+  console.log(profile)
+  // console.log(humanize.date(profile.dateOfBirth.seconds))
   const profileIcons = useMemo(
     () => ({
       height: <GiBodyHeight />,
@@ -53,7 +79,7 @@ const Profile = () => {
   } else {
     return (
       <RequireAuth>
-        <main className="font-poppins max-w-7xl mx-auto px-4 ">
+        {/* <main className="font-poppins mx-auto px-4 bg-[#E2E8F0]">
           <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
             Good Morning, <br />
             {profile?.name} 👋
@@ -100,6 +126,70 @@ const Profile = () => {
             <h1>Medical History</h1>
             <p>You have no medical history</p>
           </section>
+        </main> */}
+        <main className="flex flex-col pt-5 pt-5 md:pt-10 lg:pt-20 px-5 md:px-14 lg:px-20 gap-10 bg-[#E2E8F0] h-screen font-workSans">
+          <div className="w-full lg:w-2/3">
+            <div className="md:flex bg-white rounded-2xl p-5 lg:p-8">
+              <div className="w-full md:w-2/5 text-center">
+                <img src="https://leadership.ng/wp-content/uploads/2023/03/davido.png" alt="Profile Icon" className="w-24 h-24 rounded-full mx-auto" />
+                <h4 className="text-2xl font-bold text-black truncate mt-2">{profile?.name}</h4>
+                <p className="text-gray-500 mt-2 truncate">{profile?.email}</p>
+                <h4 className="text-lg text-black font-bold mt-4 font-poppins">Appointments</h4>
+                <h4 className="text-5xl font-bold text-black mx-auto px-6 w-max border border-t-black">1</h4>
+                <p className="text-gray-400">Upcoming</p>
+              </div>
+              <div className="grid grid-cols-2 gap-5 px-6 w-full md:w-3/5 mt-5 md:mt-0 md:border-l md:border-gray-500">
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Gender</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.gender}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Birthday</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{convertUnixTimestamp(profile?.dateOfBirth.seconds)}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Phone Number</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.phoneNumber}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Marital Status</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.maritalStatus}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Blood Group</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.bloodGroup}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">State</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.address}</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Height</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.heigth} cm</p>
+                  <hr />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl text-gray-500">Weight</h4>
+                  <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.weigth} kg</p>
+                  <hr />
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl">
+              <img src="" alt="" />
+            </div>
+          </div>
+          <div className="w-full lg:w-1/3 bg-white rounded-2xl">
+            <div>
+              <img src="" alt="" />
+            </div>
+          </div>
         </main>
       </RequireAuth>
     );

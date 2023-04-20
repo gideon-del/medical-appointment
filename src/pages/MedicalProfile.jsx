@@ -25,12 +25,12 @@ const MedicalProfile = () => {
   return (
     <RequireAuth>
       {/* Navbar */}
-      <div className="min-h-screen w-screen inset-0 z-50 fixed dark:bg-black bg-white overflow-y-scroll">
+      <div className="min-h-screen w-screen inset-0 z-50 fixed dark:bg-black overflow-y-scroll">
         <div className="text-center mt-20 md:mt-20">
           <h1 className="text-3xl">Edit Medical Profile</h1>
         </div>
         <hr className="my-2" />
-        <form className="md:px-8 md:py-8 " onSubmit={handleSubmit(submit)}>
+        <form className="md:px-8 md:py-8" onSubmit={handleSubmit(submit)}>
           <div className="grid grid-cols-1 mx-4 md:border border-4-[#0E63F4] rounded md:grid-cols-2 gap-8 md:px-8 md:py-8 lg:grid-cols-2">
             <div className=" mb-2 md:flex gap-12">
               <label

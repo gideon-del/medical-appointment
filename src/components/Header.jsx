@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import close_btn from "../assets/close_btn.svg";
 import open_btn from "../assets/open_btn.svg";
 import { Link } from "react-router-dom";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../store/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-import { HiOutlineUserCircle } from "react-icons/hi"
-const links = ["Home", "Profile"];
+import { HiOutlineUserCircle } from "react-icons/hi";
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const { logout, user } = useAuth();
@@ -20,10 +19,11 @@ const Header = () => {
     logout();
     navigate("/");
   };
-  const [isOpen, setIsOpen] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setShowDropDown(!showDropDown);
   };
+  const location = useLocation();
   return (
     <header className="w-full sticky dark:bg-black bg-white top-0 inset-x-0 py-8 md:py-4 font-poppins z-50 ">
       <div className="flex justify-between px-8 md:px-20 items-center">
@@ -43,15 +43,30 @@ const Header = () => {
           } `}
         >
           <ul className="md:hidden flex flex-col md:flex-row justify-center items-center gap-10">
-            {links.map((link) => (
-              <li key={link} className="cursor-pointer">
+            <li>
+              <h1 className="text-2xl font-semibold">DocFinder NG</h1>
+            </li>
+            <li className="cursor-pointer" onClick={() => setShowNav(false)}>
+              <NavLink
+                to="/"
+              >
+                Home
+              </NavLink>
+            </li>
+            {user ? <li className="cursor-pointer" onClick={() => setShowNav(false)}>
                 <NavLink
-                  to={`${link === "Home" ? "/" : `/${link.toLowerCase()}`}`}
+                  to="/edit"
                 >
-                  {link}
+                  Edit Profile
                 </NavLink>
-              </li>
-            ))}
+              </li>:
+              <li className="cursor-pointer" onClick={() => setShowNav(false)}>
+                <NavLink
+                  to="/profile"
+                >
+                  Profile
+                </NavLink>
+              </li>}
           </ul>
           <div className="flex flex-col md:ml-auto md:flex-row gap-4">
             {user ? (
@@ -66,14 +81,23 @@ const Header = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                     </svg>
                   </button>
-                  <ul className={`absolute text-gray-700 right-0 pt-1 w-32 ${isOpen ? "block" : "hidden"}`}>
+                  <ul className={`absolute text-gray-700 right-0 pt-1 w-32 ${showDropDown ? "block" : "hidden"}`}>
                     <li>
+                      {location.pathname === '/profile' ?
+                      <Link 
+                        to="/edit"
+                        className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
+                        onClick={() => setShowDropDown(false)}
+                      >
+                        Edit Profile
+                      </Link>:
                       <Link 
                         to="/profile"
                         className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
+                        onClick={() => setShowDropDown(false)}
                       >
                         Profile
-                      </Link>
+                      </Link>}
                     </li>
                     <li>
                       <button 
