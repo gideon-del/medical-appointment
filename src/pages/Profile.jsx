@@ -1,30 +1,15 @@
-import { BiUserCircle, BiBody } from "react-icons/bi";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { AiTwotoneStar } from "react-icons/ai";
+import { BiBody, BiUserCircle } from "react-icons/bi";
 import { BsCalendarMinusFill, BsGenderAmbiguous } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { MdBloodtype } from "react-icons/md";
 import { GiBodyHeight } from "react-icons/gi";
-import { useContext, useMemo } from "react";
-import { AuthContext } from "../store/AuthContext";
+import { MdBloodtype } from "react-icons/md";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
-import {useState, useEffect} from 'react';
+import { AuthContext } from "../store/AuthContext";
 
 function Appointments() {
-const [timeOfDay, setTimeOfDay] = useState("");
-
-  useEffect(() => {
-    const time = new Date().getHours();
-    if (time >= 5 && time < 12) {
-      setTimeOfDay("morning");
-    } else if (time >= 12 && time < 17) {
-      setTimeOfDay("afternoon");
-    } else {
-      setTimeOfDay("evening");
-    }
-  }, []);
-
-
   return (
     <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-md  dark:border-2 dark:border-gray-400 ">
       <div className="flex gap-8 items-center justify-between">
@@ -52,6 +37,19 @@ const [timeOfDay, setTimeOfDay] = useState("");
 }
 
 const Profile = () => {
+  const [timeOfDay, setTimeOfDay] = useState("");
+
+  useEffect(() => {
+    const time = new Date().getHours();
+    if (time >= 5 && time < 12) {
+      setTimeOfDay("Morning");
+    } else if (time >= 12 && time < 17) {
+      setTimeOfDay("Afternoon");
+    } else {
+      setTimeOfDay("Evening");
+    }
+  }, []);
+
   const { profile, loading, appointments } = useContext(AuthContext);
   const profileIcons = useMemo(
     () => ({
@@ -70,7 +68,7 @@ const Profile = () => {
       <RequireAuth>
         <main className="font-poppins max-w-7xl mx-auto px-4 ">
           <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
-            Good {timeOfDay}, <br />
+            {`Good ${timeOfDay},`} <br />
             {profile?.name} 👋
           </h1>
           <section className="my-10 flex flex-col gap-4">
@@ -84,8 +82,7 @@ const Profile = () => {
               {Object.keys(profileIcons).map((icon) => (
                 <div
                   className="flex flex-col shadow-md w-fit py-4 px-4 rounded-md text-sm md:text-base dark:border-2 dark:border-gray-500"
-                  key={icon}
-                >
+                  key={icon}>
                   <div className="flex items-center gap-3 ">
                     <h3 className="capitalize">{icon}</h3>
 
