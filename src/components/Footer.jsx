@@ -7,11 +7,10 @@ const Footer = () => {
         <div className="max-w-screen-xl px-4 py-16 mx-auto space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div>
-              <h1 className="text-bold text-4xl text-[#0E63F4]">PP</h1>
+              <h1 className="text-bold text-4xl text-[#0E63F4]">DocFinder NG</h1>
 
               <p className="max-w-xs mt-4 text-gray-500">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
-                non cupiditate quae nam molestias.
+                Helping you locate quality healthcare specialists in your vicinity.
               </p>
 
               <ul className="flex gap-6 mt-8">
@@ -230,7 +229,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="text-[#162D63]transition hover:opacity-75"
+                        className="text-[#162D63] transition hover:opacity-75"
                       >
                         Contact
                       </a>
@@ -295,7 +294,7 @@ const Footer = () => {
           </div>
 
           <p className="text-xs text-[#162D63]">
-            &copy; 2023. PP. All rights reserved.
+            &copy; 2023. DocFinder NG. All rights reserved.
           </p>
         </div>
       </footer>

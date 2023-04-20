@@ -53,7 +53,7 @@ const Home = () => {
                 <img src={icon} alt={"Icon"} />
 
                 <p className="text-[#162D63] text-2xl md:text-3xl my-auto px-3">
-                  PP is healthcare, but easy
+                  DocFinder is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
@@ -101,7 +101,7 @@ const Home = () => {
               <div className=" flex py-5 items-center">
                 <img src={icon} alt="" />
                 <p className="text-[#162D63] text-2xl md:text-3xl px-4">
-                  PP is healthcare, but easy
+                  DocFinder is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
@@ -146,7 +146,7 @@ const Home = () => {
           <div className="mt-36 flex px-10 py-8 bg-[#ECF3FF] md:px-20 ">
             <div className="flex flex-col md:w-[100%] py-12  lg:py-52">
               <h1 className="text-[#000000] text-center text-2xl mb-4 ">
-                Get started with PP today Book Appointment
+                Get started with DocFinder NG today
               </h1>
               <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">
                 Book Appointment
