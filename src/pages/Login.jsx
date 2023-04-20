@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Image from "../assets/authbg.png";
 import { AuthContext, useAuth } from "../store/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -66,7 +65,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="Email"
-                  className="block mb-2 text-xl  font-medium text-gray-900"
+                  className="block mb-2 text-xl font-medium text-white"
                 >
                   Email address
                 </label>
@@ -85,7 +84,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-xl  font-medium text-gray-900"
+                  className="block mb-2 text-xl  font-medium text-white"
                 >
                   Enter Password
                 </label>
