@@ -18,7 +18,7 @@ const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [appointments, setAppointmets] = useState([]);
   const login = (cred) => {
     setUser(cred);
