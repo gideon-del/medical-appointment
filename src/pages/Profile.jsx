@@ -8,21 +8,21 @@ import { GiBodyHeight } from "react-icons/gi";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../store/AuthContext";
 import RequireAuth from "../components/RequireAuth";
+import {useState, useEffect} from 'react';
 
 function Appointments() {
-  const date = new Date();
-const hour = date.getHours();
+const [timeOfDay, setTimeOfDay] = useState("");
 
-let timeOfDay;
-
-if (hour < 12) {
-  timeOfDay = "morning";
-} else if (hour >= 12 && hour < 17) {
-  timeOfDay = "afternoon";
-} else {
-  timeOfDay = "evening";
-}
-
+  useEffect(() => {
+    const time = new Date().getHours();
+    if (time >= 5 && time < 12) {
+      setTimeOfDay("morning");
+    } else if (time >= 12 && time < 17) {
+      setTimeOfDay("afternoon");
+    } else {
+      setTimeOfDay("evening");
+    }
+  }, []);
 
 
   return (
