@@ -7,7 +7,6 @@ const Hospital = () => {
     <RequireAuth>
       <div>
         <Map />
-        <div>Hello</div>
       </div>
     </RequireAuth>
   );
