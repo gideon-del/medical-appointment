@@ -10,6 +10,21 @@ import { AuthContext } from "../store/AuthContext";
 import RequireAuth from "../components/RequireAuth";
 
 function Appointments() {
+  const date = new Date();
+const hour = date.getHours();
+
+let timeOfDay;
+
+if (hour < 12) {
+  timeOfDay = "morning";
+} else if (hour >= 12 && hour < 17) {
+  timeOfDay = "afternoon";
+} else {
+  timeOfDay = "evening";
+}
+
+
+
   return (
     <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-md  dark:border-2 dark:border-gray-400 ">
       <div className="flex gap-8 items-center justify-between">
@@ -55,7 +70,7 @@ const Profile = () => {
       <RequireAuth>
         <main className="font-poppins max-w-7xl mx-auto px-4 ">
           <h1 className="font-semibold md:text-4xl  md:leading-relaxed">
-            Good Morning, <br />
+            Good {timeOfDay}, <br />
             {profile?.name} 👋
           </h1>
           <section className="my-10 flex flex-col gap-4">
