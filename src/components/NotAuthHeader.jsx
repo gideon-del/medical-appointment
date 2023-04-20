@@ -6,7 +6,7 @@ const NotAuthHeader = () => {
   return (
     <header>
       <div className="max-w-7xl mx-auto px-4 py-2 flex-col flex md:flex-row justify-between items-center">
-        <h1 to={"/"}>DocFinder NG</h1>
+        <h1 to={"/"} className="text-xl">DocFinder NG</h1>
 
         <div className="flex flex-row gap-4">
           <NavLink to="/signup">
