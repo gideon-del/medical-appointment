@@ -128,11 +128,11 @@ const Profile = () => {
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="w-full lg:w-2/3 bg-white rounded-2xl p-5 lg:p-8">
               <div className="flex justify-between">
-                <h4 className="text-black text-2xl font-bold text-black">Payments</h4>
+                <h4 className="text-black text-2xl font-bold text-black">Profile</h4>
                 <Link to="/edit">
-                  <div className="flex bg-gray-300 hover:bg-gray-400 my-auto px-6 py-2 rounded-2xl font-semibold gap-2">
+                  <div className="flex bg-gray-300 hover:bg-gray-400 my-auto px-6 py-2 rounded-2xl font-semibold gap-2 tracking-tight">
                     <FaEdit className="my-auto" />
-                    Edit Profile
+                    Edit<span className="hidden sm:block">Profile</span>
                   </div>
                 </Link>
               </div>
