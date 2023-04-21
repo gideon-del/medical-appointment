@@ -1,17 +1,17 @@
 import React from "react";
-import search from "../assets/search.svg";
-import docProfile from "../assets/docProfile.svg";
 import calender from "../assets/calender.svg";
+import docProfile from "../assets/docProfile.svg";
 import docSearch from "../assets/docSearch.svg";
+import search from "../assets/search.svg";
 
 const Services = () => {
   return (
-    <div className="mx-1  text-[#0A1634] text-md px-10  md:h-72 md:mx-32 md:my-16  ">
+    <div className="mx-1 text-[rgb(10,22,52)] text-md px-10  md:h-72 md:mx-32 md:my-16">
       <h1 className="text-center text-[#0E63F4]  text-2xl">Our Services</h1>
       <p className="text-center text-3xl md:text-4xl py-4">
         4 Easy steps to use our service
       </p>
-      <div className="lg:flex gap-2 md:gap-14 ">
+      <div className="lg:flex gap-2 md:gap-14 justify-between">
         <div className=" md:h-52">
           <div className="flex justify-center">
             <img src={search} alt="" className="" />

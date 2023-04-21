@@ -1,12 +1,12 @@
 import React from "react";
-import Services from "../components/Services";
-import hero from "../assets/hero.svg";
+import { Link } from "react-router-dom";
+import appointment from "../assets/appointment.svg";
 import doc1 from "../assets/doc1.svg";
 import doc2 from "../assets/doc2.svg";
-import appointment from "../assets/appointment.svg";
+import hero from "../assets/hero.svg";
 import icon from "../assets/icon.svg";
 import Footer from "../components/Footer";
-
+import Services from "../components/Services";
 const Home = () => {
   return (
     <>
@@ -18,15 +18,17 @@ const Home = () => {
             <h1 className="text-4xl md:text-6xl pb-4">Now</h1>
             <p className="text-xl">Revitalize your health with our easy </p>
             <p className=" text-xl pb-4"> online appointments!</p>
-            <button className="py-4 px-8 w-38 bg-[#0E63F4] text-slate-100 rounded-lg items-center">
-              Appointment
-            </button>
+            <Link to="/book-appointment">
+              <button className="py-4 px-8 w-38 bg-[#0E63F4] text-slate-100 rounded-lg items-center">
+                Appointment
+              </button>
+            </Link>
           </div>
           <div className="hidden md:block w-full md:max-h-screen ">
             <img src={hero} alt="hero" className=" w-[80%] " />
           </div>
         </div>
-        <div className="bg-[#FFFFFF] w-full ">
+        <div className="bg-[#FFFFFF] w-full text-center">
           <Services />
 
           <div className="flex flex-col-reverse lg:flex lg:flex-row gap-2 min-h-screen  px-10 md:gap-14 md:px-20 ">
@@ -53,7 +55,7 @@ const Home = () => {
                 <img src={icon} alt={"Icon"} />
 
                 <p className="text-[#162D63] text-2xl md:text-3xl my-auto px-3">
-                  DocFinder is healthcare, but easy
+                  DocFinder NG is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
@@ -101,7 +103,7 @@ const Home = () => {
               <div className=" flex py-5 items-center">
                 <img src={icon} alt="" />
                 <p className="text-[#162D63] text-2xl md:text-3xl px-4">
-                  DocFinder is healthcare, but easy
+                  DocFinder NG is healthcare, but easy
                 </p>
               </div>
               <div className="flex">
@@ -146,14 +148,16 @@ const Home = () => {
           <div className="mt-36 flex px-10 py-8 bg-[#ECF3FF] md:px-20 ">
             <div className="flex flex-col md:w-[100%] py-12  lg:py-52">
               <h1 className="text-[#000000] text-center text-2xl mb-4 ">
-                Get started with DocFinder NG today
+                Get started with DocFinder NG today Book Appointment
               </h1>
-              <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">
-                Book Appointment
-              </button>
+              <Link to="/book-appointment">
+                <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">
+                  Book Appointment
+                </button>
+              </Link>
             </div>
             <div className="hidden md:block w-full md:max-h-screen ">
-              <img src={doc2} alt="doc2" className=" " />
+              <img src={doc2} alt="doc2" className="h-[43rem]" />
             </div>
           </div>
         </div>
