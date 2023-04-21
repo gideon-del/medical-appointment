@@ -4,7 +4,7 @@ import { db } from "../firebase/firebaseConfig";
 export function validateAppoint(appoint) {
     const date = new Date(appoint.createdAtDate).getTime() + (15 * 60 * 1000);
     const nextApp= new Date(appoint.createdAtDate).getTime()
-  
+   console.log(date, nextApp)
     if(nextApp < date) return false
     return true
 }
