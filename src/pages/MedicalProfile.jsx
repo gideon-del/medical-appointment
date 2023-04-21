@@ -1,3 +1,4 @@
+import { doc, setDoc } from "firebase/firestore";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { setDoc, doc } from "firebase/firestore";
@@ -5,6 +6,8 @@ import { AuthContext } from "../store/AuthContext";
 import { db } from "../firebase/firebaseConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
+import { db } from "../firebase/firebaseConfig";
+import { AuthContext } from "../store/AuthContext";
 const MedicalProfile = () => {
   const { register, handleSubmit } = useForm();
   const {
@@ -34,8 +37,7 @@ const MedicalProfile = () => {
             <div className=" mb-2 md:flex gap-12">
               <label
                 className=" block md:inline text-gray-700 font-bold mb-2 "
-                htmlFor="full_Name"
-              >
+                htmlFor="full_Name">
                 Full Name:
               </label>
               <input
@@ -53,8 +55,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-8">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="Email"
-              >
+                htmlFor="Email">
                 E-mail:
               </label>
               <input
@@ -72,8 +73,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-12">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="Gender"
-              >
+                htmlFor="Gender">
                 Gender:
               </label>
               <select
@@ -83,8 +83,7 @@ const MedicalProfile = () => {
                   required: true,
                 })}
                 placeholder="Gender"
-                required
-              >
+                required>
                 <option value="">--Select--</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -94,8 +93,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-9">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="firstName"
-              >
+                htmlFor="firstName">
                 D.O.B:
               </label>
               <input
@@ -113,8 +111,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-3">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="BloodGroup"
-              >
+                htmlFor="BloodGroup">
                 Blood Group:
               </label>
               <select
@@ -124,8 +121,7 @@ const MedicalProfile = () => {
                   required: true,
                 })}
                 type="text"
-                required
-              >
+                required>
                 <option value="">--Select--</option>
                 <option>A+</option>
                 <option>A-</option>
@@ -140,8 +136,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-2">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="PhoneNumber"
-              >
+                htmlFor="PhoneNumber">
                 Phone No:
               </label>
               <input
@@ -161,8 +156,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-5">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="Weight"
-              >
+                htmlFor="Weight">
                 Weight (kg):
               </label>
               <input
@@ -180,8 +174,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor=" Marital Status"
-              >
+                htmlFor=" Marital Status">
                 Marital Status:
               </label>
               <select
@@ -190,8 +183,7 @@ const MedicalProfile = () => {
                 {...register("maritalStatus", {
                   required: true,
                 })}
-                required
-              >
+                required>
                 <option value="">--Select--</option>
                 <option value="single">Single</option>
                 <option value="married">Married</option>
@@ -203,8 +195,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="height"
-              >
+                htmlFor="height">
                 Height (cm):
               </label>
               <input
@@ -223,8 +214,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex gap-4">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="ocuppation"
-              >
+                htmlFor="ocuppation">
                 Occupation:
               </label>
               <input
@@ -238,8 +228,7 @@ const MedicalProfile = () => {
             <div className="mb-4 md:flex ">
               <label
                 className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="firstName"
-              >
+                htmlFor="firstName">
                 State of Residence:
               </label>
 
@@ -259,8 +248,7 @@ const MedicalProfile = () => {
           <div className="mx-4 my-2">
             <button
               className=" w-full bg-[#0E63F4]  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:w-48  md:mx-4focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
+              type="submit">
               Save Record
             </button>
           </div>
