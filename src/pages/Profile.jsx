@@ -124,7 +124,7 @@ const Profile = () => {
             <p>You have no medical history</p>
           </section>
         </main> */}
-        <main className="bg-[#E2E8F0] pt-5 pt-5 md:pt-10 lg:pt-14 px-5 md:px-14 lg:px-20 font-workSans">
+        <main className="bg-[#E2E8F0] py-5 md:py-10 lg:py-14 px-5 md:px-14 lg:px-20 font-workSans">
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="w-full lg:w-2/3 bg-white rounded-2xl p-5 lg:p-8">
               <div className="flex justify-between">
@@ -212,7 +212,7 @@ const Profile = () => {
                 </button>
               </Link>
             </div>
-            <div className="bg-gray-300 p-4 mt-6 rounded-2xl">
+            <div className="bg-gray-300 px-5 py-0.5 mt-6 rounded-2xl">
               <AppoinmentCard date="April 30th 2023" time="9:30 PM" hospital="National Hospital Abuja" department="Urology" address="179 Akin Adesola, Kofo Abayomi St, Victoria Island, Lagos" />
             </div>
           </div>
