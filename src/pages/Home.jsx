@@ -151,13 +151,13 @@ const Home = () => {
                 Get started with DocFinder NG today Book Appointment
               </h1>
               <Link to="/book-appointment">
-              <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">
-                Book Appointment
-              </button>
+                <button className="py-4 mx-auto w-[80%] lg:w-[60%] bg-[#0E63F4] text-slate-100 rounded-lg text-center items-center ">
+                  Book Appointment
+                </button>
               </Link>
             </div>
             <div className="hidden md:block w-full md:max-h-screen ">
-              <img src={doc2} alt="doc2" className="h-[4rem]" />
+              <img src={doc2} alt="doc2" className="h-[43rem]" />
             </div>
           </div>
         </div>
