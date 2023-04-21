@@ -1,11 +1,11 @@
 import React from "react";
-import Services from "../components/Services";
-import hero from "../assets/hero.svg";
+import appointment from "../assets/appointment.svg";
 import doc1 from "../assets/doc1.svg";
 import doc2 from "../assets/doc2.svg";
-import appointment from "../assets/appointment.svg";
+import hero from "../assets/hero.svg";
 import icon from "../assets/icon.svg";
 import Footer from "../components/Footer";
+import Services from "../components/Services";
 
 const Home = () => {
   return (
@@ -26,7 +26,7 @@ const Home = () => {
             <img src={hero} alt="hero" className=" w-[80%] " />
           </div>
         </div>
-        <div className="bg-[#FFFFFF] w-full ">
+        <div className="bg-[#FFFFFF] w-full text-center">
           <Services />
 
           <div className="flex flex-col-reverse lg:flex lg:flex-row gap-2 min-h-screen  px-10 md:gap-14 md:px-20 ">
