@@ -12,6 +12,8 @@ export const AuthContext = createContext({
   loading: false,
   setLoading: () => {},
   setAppointmets: () => {},
+  selectedHospital: null,
+  setSelectedHospital: () => {},
 });
 
 const AuthProvider = (props) => {
@@ -20,6 +22,7 @@ const AuthProvider = (props) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [appointments, setAppointmets] = useState([]);
+  const [selectedHospital, setSelectedHospital] = useState(null);
   const login = (cred) => {
     setUser(cred);
   };
@@ -48,6 +51,8 @@ const AuthProvider = (props) => {
         setLoading,
         appointments,
         setAppointmets,
+        selectedHospital,
+        setSelectedHospital,
       }}
     >
       {props.children}
