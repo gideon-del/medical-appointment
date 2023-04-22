@@ -1,4 +1,3 @@
-import { doc, setDoc } from "firebase/firestore";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { setDoc, doc } from "firebase/firestore";
@@ -6,8 +5,6 @@ import { AuthContext } from "../store/AuthContext";
 import { db } from "../firebase/firebaseConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
-import { db } from "../firebase/firebaseConfig";
-import { AuthContext } from "../store/AuthContext";
 const MedicalProfile = () => {
   const { register, handleSubmit } = useForm();
   const {
