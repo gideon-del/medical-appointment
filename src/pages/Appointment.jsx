@@ -75,7 +75,7 @@ const Appointment = () => {
     );
     if (!canMakeAppointMent) {
       taoster({
-        state: "warning",
+        state: "error",
         message: "You  must wait 15 Minute to make another appointment",
       });
       return <Navigate to="/profile" />;

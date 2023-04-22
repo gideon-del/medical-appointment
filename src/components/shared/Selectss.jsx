@@ -21,7 +21,6 @@ const Selects = ({
           <Select
             className="basic-single text-black max-w-md"
             classNamePrefix="select"
-            defaultValue={options[0]}
             isLoading={isLoading}
             isClearable={isClearable}
             isSearchable={isSearchable}
