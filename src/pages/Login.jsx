@@ -48,39 +48,35 @@ const Login = () => {
   };
   return (
     <AuthRoute>
-      <section className=" min-h-screen w-full">
-        <div className=" flex  ">
+      <section className=" w-full font-poppins">
+        <div className=" flex min-h-screen items-center ml-auto flex-1 ">
           {/* left column container with form  */}
 
-          <div
-            className="  flex flex-col 
-                    items-center flex-1 px-5"
-          >
+          <div className="flex flex-col items-center flex-1 px-5">
             <form
-              className="flex flex-col gap-4 max-w-sm m-auto"
+              className="max-w-xs mx-auto flex flex-col gap-2"
               onSubmit={handleSubmit(signIn)}
             >
               <div className="text-center mb-6">
                 <h1 className="text-5xl font-medium py-2"> Welcome</h1>
-                <p className="text-2xl">Login to continue using the service</p>
+                <p className="text-2xl">Login to access our service</p>
               </div>
 
               <div>
                 <label
                   htmlFor="Email"
-                  className="block mb-2 text-xl  font-medium text-gray-900"
+                  className="block mb-2 text-xl font-medium text-white"
                 >
                   Email address
                 </label>
                 <input
                   type="email"
-                  id="email"
                   {...register("email", {
                     required: true,
                     pattern:
                       /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   })}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 w-full mr-3 py-5 px-4 h-2 mb-2 sm:text-sm rounded-lg "
+                  className="bg-gray-50 border border-gray-300 text-black w-full mr-3 py-5 px-4 h-2 mb-2 text-sm rounded-lg "
                   placeholder="Email address"
                   required={true}
                 />
@@ -88,7 +84,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-xl  font-medium text-gray-900"
+                  className="block mb-2 text-xl  font-medium text-white"
                 >
                   Enter Password
                 </label>
@@ -100,23 +96,22 @@ const Login = () => {
                   })}
                   id="password"
                   placeholder="Enter Password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 w-full mr-3 py-5 px-4 h-2 mb-2 sm:text-sm rounded-lg "
+                  className="bg-gray-50 border text-black bord w-full mr-3 py-5 px-4 h-2 mb-2 text-sm rounded-lg "
                 />
               </div>
-
+              <p className="text-sm text-gray-300 hover:text-gray-200">
+                Forgot your Password?
+              </p>
               <button
                 type="submit"
-                className="w-full text-xl py-3 px-3 text-white bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 after:bg-gray-700 disabled:after:opacity-60 "
+                className="w-full mt-3 py-2 text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 disabled:after:opacity-60 after:bg-gray-700"
                 disabled={loading}
               >
                 Login
               </button>
               {error && <p className="text-red-600 font-bold">{error}</p>}
-              <Link
-                to="/signup"
-                className="text-lg text-center font-light text-[#3757BC]"
-              >
-                No account with us yet? Sign up
+              <Link to="/signup" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
+                Don't have an account? Sign Up
               </Link>
             </form>
           </div>
