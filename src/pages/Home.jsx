@@ -7,6 +7,7 @@ import hero from "../assets/hero.svg";
 import icon from "../assets/icon.svg";
 import Footer from "../components/Footer";
 import Services from "../components/Services";
+import Map from "../components/Map";
 const Home = () => {
   return (
     <>
@@ -162,6 +163,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="bg-[#E2E8F0] text-center text-[#071A48] py-4 text-black font-bold font-workSans text-3xl">
+        Select a Hospital close to you
+      </div>
+      <Map />
       <Footer />
     </>
   );
