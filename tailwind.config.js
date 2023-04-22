@@ -5,7 +5,8 @@ export default {
     extend: {
       fontFamily:{
         roboto: ['Roboto Slab','serif'],
-        poppins:['Poppins', 'sans-serif']
+        poppins:['Poppins', 'sans-serif'],
+        workSans:['Work Sans', 'sans-serif']
       }
     },
   },
