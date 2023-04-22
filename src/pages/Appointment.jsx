@@ -43,7 +43,6 @@ const Appointment = () => {
     setSelectedDepartment(department);
   };
 
-  console.log(selectedHospital)
   const handleHospitalChange = (option) => {
     setSelectedHospital(option);
   };

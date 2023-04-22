@@ -1,16 +1,11 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { AiTwotoneStar } from "react-icons/ai";
-import { BiBody, BiUserCircle } from "react-icons/bi";
-import { BsCalendarMinusFill, BsGenderAmbiguous } from "react-icons/bs";
+import { useContext, useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { GiBodyHeight } from "react-icons/gi";
-import { MdBloodtype } from "react-icons/md";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import { AuthContext } from "../store/AuthContext";
 import AppoinmentCard from "../components/AppointmentCard";
 
-  function capitalizeWords(str) {
+  function capitalizeWord(str) {
     const words = str.split(" ");
     const capitalizedWords = words.map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1);
@@ -52,9 +47,11 @@ const Profile = () => {
   const [ appointmentType, setAppointmentType ] = useState("Upcoming Appoinments")
   const location = useLocation();
   const currentDateUnix = Math.floor(Date.now() / 1000)
+  convertUnixTimestamp(profile?.dateOfBirth.seconds)
   if (!loading && !profile) {
     return <Navigate to="/edit" state={{ from: location }} replace />;
   } else {
+    console.log(profile.dateOfBirth.seconds)
     return (
       <RequireAuth>
         <main className="bg-[#E2E8F0] py-5 md:py-10 lg:py-14 px-5 md:px-14 lg:px-20 font-workSans">
@@ -98,7 +95,7 @@ const Profile = () => {
                   </div>
                   <div>
                     <h4 className="text-lg md:text-xl text-gray-500">Marital Status</h4>
-                    <p className="mt-1 mb-1.5 font-semibold text-black truncate">{profile?.maritalStatus}</p>
+                    <p className="mt-1 mb-1.5 font-semibold text-black truncate">{capitalizeWord(profile?.maritalStatus)}</p>
                     <hr />
                   </div>
                   <div>
@@ -158,7 +155,7 @@ const Profile = () => {
                     date={convertUnixTimestamp(dateToUnix(appointment.date))}
                     time={appointment.time}
                     hospital={appointment.hospital}
-                    department={capitalizeWords(appointment.department)}
+                    department={capitalizeWord(appointment.department)}
                     address={appointment.address}
                   />)}})
                 : <div className="text-center py-4">
@@ -170,7 +167,7 @@ const Profile = () => {
                     date={convertUnixTimestamp(dateToUnix(appointment.date))}
                     time={appointment.time}
                     hospital={appointment.hospital}
-                    department={capitalizeWords(appointment.department)}
+                    department={capitalizeWord(appointment.department)}
                     address={appointment.address}
                   />)}})}
             </div>
