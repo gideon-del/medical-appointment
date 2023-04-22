@@ -25,21 +25,24 @@ function App() {
   } = useContext(AuthContext);
   useEffect(() => {
     const listener = onAuthStateChanged(auth, async (user) => {
-      setLoading(true);
-      if (user) {
-        if (!profile) {
-          const prof = await getDoc(doc(db, "profile", user.uid));
-          getProfile(prof.data());
+      try {
+        if (user) {
+          if (!profile) {
+            const prof = await getDoc(doc(db, "profile", user.uid));
+            getProfile(prof.data());
+          }
+          login(user);
+          if (!appointments || appointments.length === 0) {
+            const app = await getAppoitments(user.uid);
+            setAppointmets(app);
+          }
+        } else {
+          logout();
         }
-        login(user);
-        if (!appointments || appointments.length === 0) {
-          const app = await getAppoitments(user.uid);
-          setAppointmets(app);
-        }
-      } else {
-        logout();
+      } catch (error) {
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       listener();
@@ -47,23 +50,28 @@ function App() {
   }, []);
   return (
     <>
-      {loading && <Spinner />}
-      <Header />
-      <Outlet />
-      <div className="z-[999999]">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <div className="z-[999999]">
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }
