@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api'
+import { AuthContext } from "../store/AuthContext";
 
 const Map = () => {
   const [center, setCenter] = useState(null)
   const [hospitals, setHospitals] = useState([])
-  const [selectedHospital, setSelectedHospital] = useState(null)
+  const { selectedHospital, setSelectedHospital } = useContext(AuthContext);
   const apiKey = import.meta.env.VITE_MAP_API_KEY
 
   const { isLoaded, loadError } = useLoadScript({
@@ -61,7 +62,7 @@ const Map = () => {
   }
 
   return isLoaded ? (
-    <div className="h-[80vh]">
+    <div className="h-screen">
       <GoogleMap
         center={center}
         zoom={16}
@@ -103,7 +104,6 @@ const Map = () => {
                   <Link
                     to="/book-appointment"
                     className="bg-green-500 text-white text-center text-md py-2 px-4 rounded-lg hover:bg-green-600 w-full mr-2"
-                    onClick={() => {console.log("Hello World!")}}
                   >
                     Select
                   </Link>

@@ -22,7 +22,7 @@ const Appointment = () => {
   const [selectedState, setSelectedState] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [selectedHospital, setSelectedHospital] = useState(null);
+  const { selectedHospital, setSelectedHospital } = useContext(AuthContext);
   const { control, register, handleSubmit } = useForm();
   const { setLoading, setAppointmets, user, appointments } =
     useContext(AuthContext);
@@ -43,6 +43,7 @@ const Appointment = () => {
     setSelectedDepartment(department);
   };
 
+  console.log(selectedHospital);
   const handleHospitalChange = (option) => {
     setSelectedHospital(option);
   };
@@ -51,14 +52,6 @@ const Appointment = () => {
     value: state.value,
     label: state.label,
   }));
-
-  const areaSelectOptions =
-    selectedState && selectedState.areas
-      ? selectedState.areas.map((area) => ({
-          value: area,
-          label: area,
-        }))
-      : [];
 
   const departmentSelectOptions = medicalDepartment.map((department) => ({
     value: department.name.toLowerCase(),
@@ -100,18 +93,62 @@ const Appointment = () => {
   };
   return (
     <RequireAuth>
-      <section className="min-h-screen w-full">
-        <div className="text-center mt-20 md:mt-20">
-          <h1 className="md:text-3xl text-2xl">Doctor Appointment Form</h1>
+      <section className="bg-[#E2E8F0] min-h-screen w-full pt-10 font-workSans">
+        <div className="text-center">
+          <h1 className="md:text-3xl text-2xl text-black font-semibold">
+            Doctor Appointment Form
+          </h1>
         </div>
 
         <hr className="my-2" />
 
         {/* form to handle the request for appointment */}
         <form
-          className="md:px-8 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2"
+          className="md:px-28 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2 bg-white rounded-2xl"
           onSubmit={handleSubmit(submitHandler)}
         >
+          <div className="flex flex-col gap-4">
+            <label
+              className="block md:inline text-gray-700 font-bold mb-2 mr-6"
+              htmlFor="state-select"
+            >
+              Hospital Name
+            </label>
+            <Controller
+              name="hospital"
+              control={control}
+              render={({ field: { value } }) => (
+                <input
+                  type="text"
+                  className="p-2 rounded text-white font-semibold bg-gray-500"
+                  value={selectedHospital?.name}
+                  disabled
+                />
+              )}
+              defaultValue={selectedHospital.name}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            <label
+              className="block md:inline text-gray-700 font-bold mb-2 mr-6"
+              htmlFor="state-select"
+            >
+              Hospital Address
+            </label>
+            <Controller
+              name="address"
+              control={control}
+              render={({ field: { value } }) => (
+                <input
+                  type="text"
+                  className="p-2 rounded text-white font-semibold bg-gray-500"
+                  value={selectedHospital.vicinity}
+                  disabled
+                />
+              )}
+              defaultValue={selectedHospital.vicinity}
+            />
+          </div>
           <div className="flex flex-col w-fit max-auto rounded gap-8 ">
             <InputBox
               width={"full"}
@@ -135,91 +172,7 @@ const Appointment = () => {
                 {...register("time", {
                   required: true,
                 })}
-                className=" text-black p-2 max-w-md"
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <label
-                className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="state-select"
-              >
-                Choose a state
-              </label>
-              <Selectss
-                options={stateOptions}
-                isLoading={isLoading}
-                isClearable={isClearable}
-                isSearchable={isSearchable}
-                name="state"
-                id="state"
-                control={control}
-                selectedVal={selectedState}
-                handleChange={handleStateChange}
-                placeholder="Choose a state..."
-              />
-              {selectedState && (
-                <div className="flex gap-4 flex-col">
-                  <label
-                    className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                    htmlFor="area-select"
-                  >
-                    Select Area:
-                  </label>
-                  <Controller
-                    control={control}
-                    name="area"
-                    defaultValue={areaSelectOptions[0]}
-                    render={({ field: { onChange, value, ref } }) => (
-                      <Select
-                        className="text-black  max-w-md"
-                        id="area-select"
-                        options={areaSelectOptions}
-                        value={areaSelectOptions.find(
-                          (op) => op.value === value
-                        )}
-                        onChange={(val) => onChange(val.label)}
-                        placeholder="Choose an area..."
-                        ref={ref}
-                      />
-                    )}
-                    rules={{
-                      required: true,
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-4">
-              <label
-                className="block md:inline text-gray-700 font-bold mb-2 mr-6"
-                htmlFor="state-select"
-              >
-                Which hostipal would you like to get an appointment from?
-              </label>
-              <Controller
-                name="hospital"
-                control={control}
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    className="basic-single text-black max-w-md"
-                    classNamePrefix="select"
-                    isLoading={isLoading}
-                    isClearable={isClearable}
-                    isSearchable={isSearchable}
-                    id="hospital-select"
-                    options={hospitalSelectOptions}
-                    value={hospitalSelectOptions.find(
-                      (op) => op.value === value
-                    )}
-                    onChange={(val) => onChange(val.value)}
-                    placeholder="Choose a hospital..."
-                    ref={ref}
-                  />
-                )}
-                rules={{
-                  required: true,
-                }}
-                defaultValue={hospitalSelectOptions[0].value}
+                className=" text-black p-2 max-w-md border border-gray-200 shadow-xl rounded"
               />
             </div>
             <div className="flex flex-col gap-4">
@@ -272,7 +225,7 @@ const Appointment = () => {
                 required={true}
               ></textarea>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 text-black">
               <p className="block md:inline text-gray-700 font-bold mb-2 mr-6">
                 Would you agree to reschedule the appointment, if needed?
               </p>

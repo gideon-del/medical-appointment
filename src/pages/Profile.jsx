@@ -5,6 +5,32 @@ import RequireAuth from "../components/RequireAuth";
 import { AuthContext } from "../store/AuthContext";
 import AppoinmentCard from "../components/AppointmentCard";
 
+function Appointments() {
+  return (
+    <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-md  dark:border-2 dark:border-gray-400 ">
+      <div className="flex gap-8 items-center justify-between">
+        <div className="text-2xl">
+          <BiUserCircle />
+        </div>
+        <h3 className="text-sm">
+          Dr Gideon Chidi <br /> <span>Optician</span>
+        </h3>
+        <div className="flex gap-2 items-center text-xs">
+          <AiTwotoneStar />
+          <span>5.0</span>
+        </div>
+      </div>
+      <div className="flex justify-between items-center">
+        <div className="flex gap-3 items-center text-xs md:text-base">
+          <BsCalendarMinusFill />
+          <span>15 May</span>
+        </div>
+        <time className="text-xs">11:00AM - 12:00PM</time>
+        <button className="px-2 py-2 rounded-md text-xs">View Details</button>
+      </div>
+    </div>
+  );
+}
 function convertUnixTimestamp(unixTimestamp) {
   const dateObj = new Date(unixTimestamp * 1000);
   const month = dateObj.toLocaleString("default", { month: "short" });
@@ -32,22 +58,12 @@ function getOrdinalSuffix(day) {
   }
 }
 const Profile = () => {
-  const [timeOfDay, setTimeOfDay] = useState("");
-
-  useEffect(() => {
-    const time = new Date().getHours();
-    if (time >= 5 && time < 12) {
-      setTimeOfDay("Morning");
-    } else if (time >= 12 && time < 17) {
-      setTimeOfDay("Afternoon");
-    } else {
-      setTimeOfDay("Evening");
-    }
-  }, []);
-
   const { profile, loading, appointments } = useContext(AuthContext);
-
+  const [appointmentType, setAppointmentType] = useState(
+    "Upcoming Appoinments"
+  );
   const location = useLocation();
+  const currentDateUnix = Math.floor(Date.now() / 1000);
   if (!loading && !profile) {
     return <Navigate to="/edit" state={{ from: location }} replace />;
   } else {
@@ -155,9 +171,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="w-full lg:w-1/3 bg-white rounded-2xl p-5">
-              <h4 className="text-black text-2xl font-bold text-black">
-                Payments
-              </h4>
+              <h4 className="text-black text-2xl font-bold ">Payments</h4>
               <div className="flex items-center justify-center text-black h-72 text-3xl font-bold">
                 Coming Soon
               </div>
@@ -166,27 +180,69 @@ const Profile = () => {
           <div className="mt-10 bg-white rounded-2xl text-black p-7">
             <div className="flex flex-col md:flex-row md:justify-between">
               <div className="bg-gray-300 p-1.5 rounded-2xl w-full md:w-max">
-                <button className="w-full md:w-max rounded-2xl font-semibold px-5 py-3 bg-white text-blue-500">
-                  Upcoming Appoinments
-                </button>
-                <button className="w-full md:w-max ml-5 rounded-2xl text-gray-600 font-semibold px-5 py-3">
-                  Past Appoinments
-                </button>
+                {["Upcoming Appoinments", "Past Appoinments"].map((type) => {
+                  return (
+                    <button
+                      key={type}
+                      onClick={() => setAppointmentType(type)}
+                      className={`w-full md:w-max mx-2.5 rounded-2xl font-semibold px-5 py-3
+                    ${
+                      appointmentType === type
+                        ? "bg-white text-blue-500"
+                        : "text-gray-600"
+                    }`}
+                    >
+                      {type}
+                    </button>
+                  );
+                })}
               </div>
-              <Link to="/book-appointment">
+              <Link to="/hospital">
                 <button className="w-full mt-5 md:mt-0 md:w-max basis-1 bg-blue-500 hover:bg-blue-700 px-5 py-3 text-white font-semibold rounded-2xl">
                   Make Appointment
                 </button>
               </Link>
             </div>
             <div className="bg-gray-300 px-5 py-0.5 mt-6 rounded-2xl">
-              <AppoinmentCard
-                date="April 30th 2023"
-                time="9:30 PM"
-                hospital="National Hospital Abuja"
-                department="Urology"
-                address="179 Akin Adesola, Kofo Abayomi St, Victoria Island, Lagos"
-              />
+              {appointmentType === "Upcoming Appoinments" &&
+              appointments.length > 0 ? (
+                appointments.map((appointment) => {
+                  if (currentDateUnix < dateToUnix(appointment.date)) {
+                    return (
+                      <AppoinmentCard
+                        date={convertUnixTimestamp(
+                          dateToUnix(appointment.date)
+                        )}
+                        time={appointment.time}
+                        hospital={appointment.hospital}
+                        department={capitalizeWords(appointment.department)}
+                        address={appointment.address}
+                      />
+                    );
+                  }
+                })
+              ) : (
+                <div className="text-center py-4">
+                  <h4 className="font-semibold">Nothing to show here.</h4>
+                </div>
+              )}
+              {appointmentType === "Past Appoinments" &&
+                appointments.length > 0 &&
+                appointments.map((appointment) => {
+                  if (currentDateUnix > dateToUnix(appointment.date)) {
+                    return (
+                      <AppoinmentCard
+                        date={convertUnixTimestamp(
+                          dateToUnix(appointment.date)
+                        )}
+                        time={appointment.time}
+                        hospital={appointment.hospital}
+                        department={capitalizeWords(appointment.department)}
+                        address={appointment.address}
+                      />
+                    );
+                  }
+                })}
             </div>
           </div>
         </main>
