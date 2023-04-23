@@ -25,7 +25,7 @@ const Header = () => {
   };
   const location = useLocation();
   return (
-    <header className="w-full sticky dark:bg-black bg-white top-0 inset-x-0 py-8 md:py-4 font-poppins z-50 ">
+    <header className="w-full sticky  bg-white top-0 inset-x-0 py-8 md:py-4 font-poppins z-50 ">
       <div className="flex justify-between px-8 md:px-20 items-center">
         <Link to="/">
           <h1 className="text-2xl font-semibold">DocFinder NG</h1>
@@ -47,26 +47,17 @@ const Header = () => {
               <h1 className="text-2xl font-semibold">DocFinder NG</h1>
             </li>
             <li className="cursor-pointer" onClick={() => setShowNav(false)}>
-              <NavLink
-                to="/"
-              >
-                Home
-              </NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
-            {user ? <li className="cursor-pointer" onClick={() => setShowNav(false)}>
-                <NavLink
-                  to="/edit"
-                >
-                  Edit Profile
-                </NavLink>
-              </li>:
+            {user ? (
               <li className="cursor-pointer" onClick={() => setShowNav(false)}>
-                <NavLink
-                  to="/profile"
-                >
-                  Profile
-                </NavLink>
-              </li>}
+                <NavLink to="/edit">Edit Profile</NavLink>
+              </li>
+            ) : (
+              <li className="cursor-pointer" onClick={() => setShowNav(false)}>
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+            )}
           </ul>
           <div className="flex flex-col md:ml-auto md:flex-row gap-4">
             {user ? (
@@ -77,30 +68,40 @@ const Header = () => {
                     onClick={toggleDropdown}
                   >
                     <HiOutlineUserCircle size="35px" />
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    <svg
+                      className="fill-current h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </button>
-                  <ul className={`absolute text-gray-700 right-0 pt-1 w-32 ${showDropDown ? "block" : "hidden"}`}>
+                  <ul
+                    className={`absolute text-gray-700 right-0 pt-1 w-32 ${
+                      showDropDown ? "block" : "hidden"
+                    }`}
+                  >
                     <li>
-                      {location.pathname === '/profile' ?
-                      <Link 
-                        to="/edit"
-                        className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
-                        onClick={() => setShowDropDown(false)}
-                      >
-                        Edit Profile
-                      </Link>:
-                      <Link 
-                        to="/profile"
-                        className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
-                        onClick={() => setShowDropDown(false)}
-                      >
-                        Profile
-                      </Link>}
+                      {location.pathname === "/profile" ? (
+                        <Link
+                          to="/edit"
+                          className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
+                          onClick={() => setShowDropDown(false)}
+                        >
+                          Edit Profile
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/profile"
+                          className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 text-center block"
+                          onClick={() => setShowDropDown(false)}
+                        >
+                          Profile
+                        </Link>
+                      )}
                     </li>
                     <li>
-                      <button 
+                      <button
                         className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block w-full"
                         onClick={clear}
                       >
@@ -109,12 +110,12 @@ const Header = () => {
                     </li>
                   </ul>
                 </div>
-              <button
-                className="visible md:hidden bg-blue-800 text-white px-4 rounded-md py-3 w-36 md:w-28"
-                onClick={clear}
-              >
-                Log out
-              </button>
+                <button
+                  className="visible md:hidden bg-blue-800 text-white px-4 rounded-md py-3 w-36 md:w-28"
+                  onClick={clear}
+                >
+                  Log out
+                </button>
               </>
             ) : (
               <>
