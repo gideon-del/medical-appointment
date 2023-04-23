@@ -1,6 +1,6 @@
 const medicalDepartment = [
-    { id: 1, name: 'Cardiology' },
-    { id: 2, name: 'Dermatology' },
+    { id: 1, name: 'Cardiology', doctor:'Dr. Ava Patel' },
+    { id: 2, name: 'Dermatology', doctor:'Dr. Maxine Chen' },
     { id: 3, name: 'Endocrinology' },
     { id: 4, name: 'Gastroenterology' },
     { id: 5, name: 'Hematology' },

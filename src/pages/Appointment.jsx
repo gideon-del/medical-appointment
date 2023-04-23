@@ -6,10 +6,10 @@ import { stateOptions } from "../data/stateOptions";
 import Selectss from "../components/shared/Selectss";
 import { Controller, useForm } from "react-hook-form";
 import { useContext } from "react";
-import { AuthContext } from "../store/AuthContext";
+import { AuthContext, useAuth } from "../store/AuthContext";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { validateAppoint } from "../lib/validation";
 import RequireAuth from "../components/RequireAuth";
 import { taoster } from "../lib/toaster";
@@ -22,11 +22,12 @@ const Appointment = () => {
   const [selectedState, setSelectedState] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const { selectedHospital, setSelectedHospital } = useContext(AuthContext);
+  const { selectedHospital, setSelectedHospital } = useAuth();
   const { control, register, handleSubmit } = useForm();
   const { setLoading, setAppointmets, user, appointments } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleStateChange = (option) => {
     const state = stateOptions.find((state) => state.value === option.value);
     setSelectedState(state);
@@ -52,14 +53,6 @@ const Appointment = () => {
     label: state.label,
   }));
 
-  const areaSelectOptions =
-    selectedState && selectedState.areas
-      ? selectedState.areas.map((area) => ({
-          value: area,
-          label: area,
-        }))
-      : [];
-
   const departmentSelectOptions = medicalDepartment.map((department) => ({
     value: department.name.toLowerCase(),
     label: department.name,
@@ -80,6 +73,9 @@ const Appointment = () => {
       });
       return <Navigate to="/profile" />;
     }
+  }
+  if (!selectedHospital) {
+    return <Navigate to="/profile" state={{ from: location }} replace />;
   }
   const submitHandler = async (data) => {
     try {
@@ -102,7 +98,9 @@ const Appointment = () => {
     <RequireAuth>
       <section className="bg-[#E2E8F0] min-h-screen w-full pt-10 font-workSans">
         <div className="text-center">
-          <h1 className="md:text-3xl text-2xl text-black font-semibold">Doctor Appointment Form</h1>
+          <h1 className="md:text-3xl text-2xl text-black font-semibold">
+            Doctor Appointment Form
+          </h1>
         </div>
 
         <hr className="my-2" />
@@ -112,7 +110,7 @@ const Appointment = () => {
           className="md:px-28 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2 bg-white rounded-2xl"
           onSubmit={handleSubmit(submitHandler)}
         >
-        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <label
               className="block md:inline text-gray-700 font-bold mb-2 mr-6"
               htmlFor="state-select"
@@ -126,7 +124,7 @@ const Appointment = () => {
                 <input
                   type="text"
                   className="p-2 rounded text-white font-semibold bg-gray-500"
-                  value={selectedHospital.name}
+                  value={selectedHospital?.name}
                   disabled
                 />
               )}

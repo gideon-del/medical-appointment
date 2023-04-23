@@ -3,10 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply dark:bg-black dark:text-white;
-  }
+@layer components {
   .loader {
     @apply border-black dark:border-white;
     width: 48px;
