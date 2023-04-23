@@ -7,6 +7,7 @@ import { useAuth } from "../store/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import Logo from "../assets/logo.png"
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const { logout, user } = useAuth();
@@ -27,8 +28,8 @@ const Header = () => {
   return (
     <header className="w-full sticky dark:bg-black bg-white top-0 inset-x-0 py-8 md:py-4 font-poppins z-50 ">
       <div className="flex justify-between px-8 md:px-20 items-center">
-        <Link to="/">
-          <h1 className="text-2xl font-semibold">DocFinder NG</h1>
+        <Link to="/" className="flex gap-3">
+          <img src={Logo} alt="Logo" className="h-8 md:h-10" />
         </Link>
         <button onClick={toggleNavbar}>
           <img
@@ -44,7 +45,7 @@ const Header = () => {
         >
           <ul className="md:hidden flex flex-col md:flex-row justify-center items-center gap-10">
             <li>
-              <h1 className="text-2xl font-semibold">DocFinder NG</h1>
+              <img src={Logo} alt="Logo" className="h-8" />
             </li>
             <li className="cursor-pointer" onClick={() => setShowNav(false)}>
               <NavLink

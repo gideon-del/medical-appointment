@@ -4,6 +4,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import { AuthContext } from "../store/AuthContext";
 import AppoinmentCard from "../components/AppointmentCard";
+import AppointmentSlip from "../components/AppointmentSlip";
 
   function capitalizeWord(str) {
     const words = str.split(" ");
@@ -51,7 +52,6 @@ const Profile = () => {
   if (!loading && !profile) {
     return <Navigate to="/edit" state={{ from: location }} replace />;
   } else {
-    console.log(profile.dateOfBirth.seconds)
     return (
       <RequireAuth>
         <main className="bg-[#E2E8F0] py-5 md:py-10 lg:py-14 px-5 md:px-14 lg:px-20 font-workSans">
@@ -124,19 +124,19 @@ const Profile = () => {
             <div className="w-full lg:w-1/3 bg-white rounded-2xl p-5">
               <h4 className="text-black text-2xl font-bold text-black">Payments</h4>
               <div className="flex items-center justify-center text-black h-72 text-3xl font-bold">
-                Coming Soon
+                <AppointmentSlip />
               </div>
             </div>
           </div>
           <div className="mt-10 bg-white rounded-2xl text-black p-7">
-            <div className="flex flex-col md:flex-row md:justify-between">
+            <div className="flex flex-col mx-auto md:flex-row md:justify-between">
               <div className="bg-gray-300 p-1.5 rounded-2xl w-full md:w-max">
                 {["Upcoming Appoinments", "Past Appoinments"].map(type => {
                   return (
                   <button 
                     key={type}
                     onClick={() => setAppointmentType(type)}
-                    className={`w-full md:w-max mx-2.5 rounded-2xl font-semibold px-5 py-3
+                    className={`w-full md:w-max md:mx-2.5 rounded-2xl font-semibold px-5 py-3
                     ${appointmentType === type? "bg-white text-blue-500": "text-gray-600"}`}>
                       {type}
                   </button>)
@@ -149,8 +149,8 @@ const Profile = () => {
               </Link>
             </div>
             <div className="bg-gray-300 px-5 py-0.5 mt-6 rounded-2xl">
-              {appointmentType === "Upcoming Appoinments" && appointments.length > 0 ? appointments.map(appointment => {
-                if (currentDateUnix < dateToUnix(appointment.date)) {
+              { appointments.length > 0 ? appointments.map(appointment => {
+                if (appointmentType === "Upcoming Appoinments" && currentDateUnix < dateToUnix(appointment.date)) {
                   return (<AppoinmentCard 
                     date={convertUnixTimestamp(dateToUnix(appointment.date))}
                     time={appointment.time}
@@ -158,11 +158,11 @@ const Profile = () => {
                     department={capitalizeWord(appointment.department)}
                     address={appointment.address}
                   />)}})
-                : <div className="text-center py-4">
+                :<div className="text-center py-4">
                   <h4 className="font-semibold">Nothing to show here.</h4>
                 </div>}
-                {appointmentType === "Past Appoinments" && appointments.length > 0 && appointments.map(appointment => {
-                if (currentDateUnix > dateToUnix(appointment.date)) {
+                {appointments.length > 0 && appointments.map(appointment => {
+                if (appointmentType === "Past Appoinments" && currentDateUnix > dateToUnix(appointment.date)) {
                   return (<AppoinmentCard 
                     date={convertUnixTimestamp(dateToUnix(appointment.date))}
                     time={appointment.time}

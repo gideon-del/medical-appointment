@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../assets/logo-light.png"
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
         <div className="max-w-screen-xl px-4 py-16 mx-auto space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div>
-              <h1 className="text-bold text-4xl text-[#0E63F4]">DocFinder NG</h1>
+              <img src={Logo} alt="Logo" className="h-8" />
 
               <p className="max-w-xs mt-4 text-gray-500">
                 Helping you locate quality healthcare specialists in your vicinity.

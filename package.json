@@ -12,6 +12,7 @@
     "@react-google-maps/api": "^2.18.1",
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-calendar": "^4.2.1",
     "react-dom": "^18.2.0",
@@ -19,6 +20,7 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "react-select": "^5.7.2",
+    "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.2",
     "yarn": "^1.22.19"
   },
