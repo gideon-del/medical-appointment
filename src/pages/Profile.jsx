@@ -130,7 +130,7 @@ const Profile = () => {
             <div className="w-full lg:w-1/3 bg-white rounded-2xl p-5">
               <h4 className="text-black text-2xl font-bold ">Payments</h4>
               <div className="flex items-center justify-center text-black h-72 text-3xl font-bold">
-                <AppointmentSlip />
+                {/* <AppointmentSlip /> */}
               </div>
             </div>
           </div>
