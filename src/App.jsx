@@ -13,7 +13,6 @@ import { getAppoitments } from "./lib/validation";
 
 function App() {
   const {
-    user,
     login,
     logout,
     profile,
@@ -56,22 +55,21 @@ function App() {
         <>
           <Header />
           <Outlet />
-          <div className="z-[999999]">
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
-          </div>
         </>
       )}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 }
