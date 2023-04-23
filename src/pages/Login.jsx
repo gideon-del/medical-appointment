@@ -65,7 +65,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="Email"
-                  className="block mb-2 text-xl font-medium text-white"
+                  className="block mb-2 text-xl font-medium "
                 >
                   Email address
                 </label>
@@ -84,7 +84,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-xl  font-medium text-white"
+                  className="block mb-2 text-xl  font-medium"
                 >
                   Enter Password
                 </label>
@@ -99,9 +99,6 @@ const Login = () => {
                   className="bg-gray-50 border text-black bord w-full mr-3 py-5 px-4 h-2 mb-2 text-sm rounded-lg "
                 />
               </div>
-              <p className="text-sm text-gray-300 hover:text-gray-200">
-                Forgot your Password?
-              </p>
               <button
                 type="submit"
                 className="w-full mt-3 py-2 text-white text-lg md:text-xl bg-[#0E63F4] rounded-lg relative after:absolute after:inset-0 after:opacity-0 disabled:after:opacity-60 after:bg-gray-700"
@@ -110,7 +107,10 @@ const Login = () => {
                 Login
               </button>
               {error && <p className="text-red-600 font-bold">{error}</p>}
-              <Link to="/signup" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
+              <Link
+                to="/signup"
+                className="mt-2 text-md hover:text-gray-400 text-center font-medium"
+              >
                 Don't have an account? Sign Up
               </Link>
             </form>

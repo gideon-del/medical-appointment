@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { AuthContext, useAuth } from "../store/AuthContext";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { validateAppoint } from "../lib/validation";
 import RequireAuth from "../components/RequireAuth";
 import { taoster } from "../lib/toaster";
@@ -27,6 +27,7 @@ const Appointment = () => {
   const { setLoading, setAppointmets, user, appointments } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleStateChange = (option) => {
     const state = stateOptions.find((state) => state.value === option.value);
     setSelectedState(state);
@@ -73,6 +74,9 @@ const Appointment = () => {
       });
       return <Navigate to="/profile" />;
     }
+  }
+  if (!selectedHospital) {
+    return <Navigate to="/profile" state={{ from: location }} replace />;
   }
   const submitHandler = async (data) => {
     try {

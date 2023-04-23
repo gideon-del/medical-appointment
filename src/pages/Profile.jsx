@@ -10,6 +10,8 @@ import {
   capitalizeWords,
 } from "../lib/converters";
 import useAppointment from "../hooks/useAppointments";
+import UpcomingApp from "../components/UpcomingApp";
+import PastApp from "../components/PastApp";
 
 const Profile = () => {
   const { profile, loading, appointments } = useContext(AuthContext);
@@ -159,47 +161,11 @@ const Profile = () => {
               </Link>
             </div>
             <div className="bg-gray-300 px-5 py-0.5 mt-6 rounded-2xl">
-              {appointmentType === "Upcoming Appoinments" &&
-              upcoming.length > 0 ? (
-                upcoming.map((appointment) => {
-                  if (currentDateUnix < dateToUnix(appointment.date)) {
-                    return (
-                      <AppoinmentCard
-                        date={convertUnixTimestamp(
-                          dateToUnix(appointment.date)
-                        )}
-                        time={appointment.time}
-                        hospital={appointment.hospital}
-                        department={capitalizeWords(appointment.department)}
-                        address={appointment.address}
-                        key={appointment.createdAtDate}
-                      />
-                    );
-                  }
-                })
+              {appointmentType === "Upcoming Appoinments" ? (
+                <UpcomingApp />
               ) : (
-                <div className="text-center py-4">
-                  <h4 className="font-semibold">Nothing to show here.</h4>
-                </div>
+                <PastApp />
               )}
-              {appointmentType === "Past Appoinments" &&
-                past.length > 0 &&
-                past.map((appointment) => {
-                  if (currentDateUnix > dateToUnix(appointment.date)) {
-                    return (
-                      <AppoinmentCard
-                        date={convertUnixTimestamp(
-                          dateToUnix(appointment.date)
-                        )}
-                        key={appointment.createdAtDate}
-                        time={appointment.time}
-                        hospital={appointment.hospital}
-                        department={capitalizeWords(appointment.department)}
-                        address={appointment.address}
-                      />
-                    );
-                  }
-                })}
             </div>
           </div>
         </main>
