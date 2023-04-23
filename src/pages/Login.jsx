@@ -1,20 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "../assets/authbg.png";
-import { AuthContext, useAuth } from "../store/AuthContext";
+import { useAuth } from "../store/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { SignIn } from "../lib/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
 import { taoster } from "../lib/toaster";
 import AuthRoute from "../components/AuthRoute";
-import { getAppoitments } from "../lib/validation";
+import useLogin from "../hooks/useLogin";
 const Login = () => {
-  const { user, login, getProfile, loading, setLoading, setAppointmets } =
-    useAuth();
+  const { user, loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const loginUser = useLogin();
   useEffect(() => {
     if (user) {
       navigate("/profile");
@@ -24,27 +21,16 @@ const Login = () => {
     try {
       setLoading(true);
       setError("");
-      const { user } = await SignIn(data);
-      const appoints = await getAppoitments(user.uid);
-      setAppointmets(appoints);
-      const prof = await getDoc(doc(db, "profile", user.uid));
-      if (!prof.data()) {
-        login(user);
-        setTimeout(() => navigate("/edit"), 500);
-        return;
-      }
-      getProfile(prof.data());
-      login(user);
-      taoster({ state: "success", message: "Welcome back" });
-      setTimeout(() => navigate("/profile"), 500);
+      await loginUser(data);
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
       taoster({
         state: "error",
         message: error.message.split("Firebase: Error").join(""),
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
   return (
     <AuthRoute>
