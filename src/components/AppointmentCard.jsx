@@ -38,6 +38,12 @@ export default function AppoinmentCard({ date, time, hospital, department, addre
                 <h4 className="text-xl font-medium font-semibold">Address</h4>
                 <a href={link} target="_blank" className="text-gray-400 font-medium hover:text-gray-700">{address}</a>
             </div>
+            <button
+                className="flex lg:hidden w-full py-3 bg-blue-500 hover:bg-blue-700 justify-center font-semibold rounded-xl text-white cursor-pointer"
+                onClick={handlePrint}
+            >   
+                <span className="cursor-pointer">Download</span>
+            </button>
             <div class="opacity-0 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg h-0.5 w-0.5">
                 <AppointmentSlip
                     name={profile.name}
