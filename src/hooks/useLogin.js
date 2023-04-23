@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { taoster } from "../lib/toaster";
 import { getAppoitments } from "../lib/validation";
-import { SignIn } from "../lib/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { SignIn, SignUp } from "../lib/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "../store/AuthContext";
-const useLogin =  () => {
+const useLogin =  (type = 'signup') => {
     const {setAppointmets,getProfile,login} = useAuth()
     const navigate = useNavigate()
     const loginUser =async (data) => {
@@ -24,7 +24,19 @@ const useLogin =  () => {
         taoster({ state: "success", message: "Welcome back" });
         setTimeout(() => navigate("/profile"), 500);
     }
-return loginUser
+    const signup = async (data) => {
+   
+        const id = await SignUp({ email: data.email, password: data.password });
+        login(id.user);
+        await setDoc(doc(db, "appointments", id.user.uid), {
+          appointments: [],
+        });
+        taoster({ state: "success", message: "Welcome" });
+        reset();
+  
+        navigate("/create");
+    }
+return type==='login'? loginUser : signup
 }
 
 export default useLogin

@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
-  const loginUser = useLogin();
+  const loginUser = useLogin("login");
   useEffect(() => {
     if (user) {
       navigate("/profile");
