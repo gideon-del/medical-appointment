@@ -8,24 +8,18 @@ import { taoster } from "../lib/toaster";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import AuthRoute from "../components/AuthRoute";
+import useLogin from "../hooks/useLogin";
 
 const Signup = () => {
   const { register, reset, handleSubmit } = useForm();
   const { login, user, setLoading, loading } = useContext(AuthContext);
   const [error, setError] = useState("");
   const history = useNavigate();
+  const singin = useLogin();
   const submit = async (data) => {
     try {
-      setLoading(true);
-      const id = await SignUp({ email: data.email, password: data.password });
-      login(id.user);
-      await setDoc(doc(db, "appointments", id.user.uid), {
-        appointments: [],
-      });
-      taoster({ state: "success", message: "Welcome" });
+      await singin(data);
       reset();
-
-      history("/edit");
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
       taoster({
@@ -104,7 +98,10 @@ const Signup = () => {
                   {error}
                 </p>
               )}
-              <Link to="/login" className="mt-2 text-md hover:text-gray-400 text-center font-medium">
+              <Link
+                to="/login"
+                className="mt-2 text-md hover:text-gray-400 text-center font-medium"
+              >
                 Already have an account? log in
               </Link>
             </form>
