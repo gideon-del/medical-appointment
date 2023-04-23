@@ -25,7 +25,7 @@ const Header = () => {
   };
   const location = useLocation();
   return (
-    <header className="w-full sticky  bg-white top-0 inset-x-0 py-8 md:py-4 font-poppins z-50 ">
+    <header className="w-full sticky  top-0 inset-x-0 bg-white py-8 md:py-4 font-poppins z-50 ">
       <div className="flex justify-between px-8 md:px-20 items-center">
         <Link to="/">
           <h1 className="text-2xl font-semibold">DocFinder NG</h1>
@@ -38,7 +38,7 @@ const Header = () => {
           />
         </button>
         <nav
-          className={`fixed w-1/2 left-0 py-10 md:py-3 inset-y-0 bg-white -translate-x-full md:translate-x-0 md:relative flex flex-col md:flex-row md:flex-1 justify-between dark:bg-black items-center transition-all duration-300 z-50 ease-in ${
+          className={`fixed w-1/2 left-0 py-10 md:py-3 inset-y-0  -translate-x-full md:translate-x-0 md:relative flex flex-col md:flex-row md:flex-1 justify-between  items-center transition-all duration-300 z-50 ease-in ${
             showNav ? "translate-x-0" : " -translate-x-full"
           } `}
         >

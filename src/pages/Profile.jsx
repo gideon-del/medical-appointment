@@ -4,64 +4,19 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import { AuthContext } from "../store/AuthContext";
 import AppoinmentCard from "../components/AppointmentCard";
+import {
+  convertUnixTimestamp,
+  dateToUnix,
+  capitalizeWords,
+} from "../lib/converters";
+import useAppointment from "../hooks/useAppointments";
 
-function Appointments() {
-  return (
-    <div className="flex flex-col gap-4 px-4 py-2 rounded-xl shadow-md  dark:border-2 dark:border-gray-400 ">
-      <div className="flex gap-8 items-center justify-between">
-        <div className="text-2xl">
-          <BiUserCircle />
-        </div>
-        <h3 className="text-sm">
-          Dr Gideon Chidi <br /> <span>Optician</span>
-        </h3>
-        <div className="flex gap-2 items-center text-xs">
-          <AiTwotoneStar />
-          <span>5.0</span>
-        </div>
-      </div>
-      <div className="flex justify-between items-center">
-        <div className="flex gap-3 items-center text-xs md:text-base">
-          <BsCalendarMinusFill />
-          <span>15 May</span>
-        </div>
-        <time className="text-xs">11:00AM - 12:00PM</time>
-        <button className="px-2 py-2 rounded-md text-xs">View Details</button>
-      </div>
-    </div>
-  );
-}
-function convertUnixTimestamp(unixTimestamp) {
-  const dateObj = new Date(unixTimestamp * 1000);
-  const month = dateObj.toLocaleString("default", { month: "short" });
-  const day = dateObj.toLocaleString("default", { day: "numeric" });
-  const year = dateObj.toLocaleString("default", { year: "numeric" });
-  const suffix = getOrdinalSuffix(day);
-  return `${month} ${day}${suffix}, ${year}`;
-}
-
-function getOrdinalSuffix(day) {
-  if (day >= 11 && day <= 13) {
-    return "th";
-  } else {
-    const lastDigit = day % 10;
-    switch (lastDigit) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  }
-}
 const Profile = () => {
   const { profile, loading, appointments } = useContext(AuthContext);
   const [appointmentType, setAppointmentType] = useState(
     "Upcoming Appoinments"
   );
+  const { past, upcoming } = useAppointment();
   const location = useLocation();
   const currentDateUnix = Math.floor(Date.now() / 1000);
   if (!loading && !profile) {
@@ -98,7 +53,7 @@ const Profile = () => {
                     Appointments
                   </h4>
                   <h4 className="text-5xl font-bold text-black mx-auto px-6 w-max border border-t-black">
-                    {appointments?.length}
+                    {upcoming?.length}
                   </h4>
                   <p className="text-gray-400">Upcoming</p>
                 </div>
@@ -205,8 +160,8 @@ const Profile = () => {
             </div>
             <div className="bg-gray-300 px-5 py-0.5 mt-6 rounded-2xl">
               {appointmentType === "Upcoming Appoinments" &&
-              appointments.length > 0 ? (
-                appointments.map((appointment) => {
+              upcoming.length > 0 ? (
+                upcoming.map((appointment) => {
                   if (currentDateUnix < dateToUnix(appointment.date)) {
                     return (
                       <AppoinmentCard
@@ -217,6 +172,7 @@ const Profile = () => {
                         hospital={appointment.hospital}
                         department={capitalizeWords(appointment.department)}
                         address={appointment.address}
+                        key={appointment.createdAtDate}
                       />
                     );
                   }
@@ -227,14 +183,15 @@ const Profile = () => {
                 </div>
               )}
               {appointmentType === "Past Appoinments" &&
-                appointments.length > 0 &&
-                appointments.map((appointment) => {
+                past.length > 0 &&
+                past.map((appointment) => {
                   if (currentDateUnix > dateToUnix(appointment.date)) {
                     return (
                       <AppoinmentCard
                         date={convertUnixTimestamp(
                           dateToUnix(appointment.date)
                         )}
+                        key={appointment.createdAtDate}
                         time={appointment.time}
                         hospital={appointment.hospital}
                         department={capitalizeWords(appointment.department)}

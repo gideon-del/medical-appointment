@@ -6,7 +6,7 @@ import { stateOptions } from "../data/stateOptions";
 import Selectss from "../components/shared/Selectss";
 import { Controller, useForm } from "react-hook-form";
 import { useContext } from "react";
-import { AuthContext } from "../store/AuthContext";
+import { AuthContext, useAuth } from "../store/AuthContext";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ const Appointment = () => {
   const [selectedState, setSelectedState] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const { selectedHospital, setSelectedHospital } = useContext(AuthContext);
+  const { selectedHospital, setSelectedHospital } = useAuth();
   const { control, register, handleSubmit } = useForm();
   const { setLoading, setAppointmets, user, appointments } =
     useContext(AuthContext);
