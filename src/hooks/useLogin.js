@@ -32,7 +32,6 @@ const useLogin =  (type = 'signup') => {
           appointments: [],
         });
         taoster({ state: "success", message: "Welcome" });
-        reset();
   
         navigate("/create");
     }

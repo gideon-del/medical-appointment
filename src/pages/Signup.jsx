@@ -19,6 +19,7 @@ const Signup = () => {
   const submit = async (data) => {
     try {
       await singin(data);
+      reset();
     } catch (error) {
       setError(error.message.split("Firebase: Error").join(""));
       taoster({
