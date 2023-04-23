@@ -163,9 +163,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#E2E8F0] text-center text-[#071A48] py-4 text-black font-bold font-workSans text-3xl">
+      {<div className="bg-[#E2E8F0] text-center text-blue-500 py-4 text-black font-bold font-workSans text-3xl">
         Select a Hospital close to you
-      </div>
+      </div>}
       <Map />
       <Footer />
     </>

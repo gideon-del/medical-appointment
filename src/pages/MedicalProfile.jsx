@@ -212,7 +212,7 @@ const MedicalProfile = () => {
                     required: true,
                   })}
                   id="allergy"
-                  placeholder="Musician"
+                  placeholder="Peanuts, Fur"
                   required
                   className="block w-full mt-2 py-3 border border-gray-500 active:border-black rounded text-black pl-4"
                 />

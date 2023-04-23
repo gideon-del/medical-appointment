@@ -19,6 +19,7 @@ const UpcomingApp = () => {
           hospital={appointment.hospital}
           department={capitalizeWords(appointment.department)}
           address={appointment.address}
+          link={appointment.link}
           key={appointment.createdAtDate}
         />
       );

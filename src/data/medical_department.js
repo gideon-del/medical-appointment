@@ -18,7 +18,8 @@ const medicalDepartment = [
     { id: 17, name: 'Infectious Diseases' },
     { id: 18, name: 'Nephrology' },
     { id: 19, name: 'Geriatrics' },
-    { id: 20, name: 'Allergy and Immunology' }
+    { id: 20, name: 'Allergy and Immunology' },
+    { id: 21, name: 'Others' }
 ];
 
 const hospital = [

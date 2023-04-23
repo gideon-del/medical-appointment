@@ -31,21 +31,27 @@ const Map = () => {
       console.error('Geolocation is not supported by this browser.')
     }
   }, [])
-
   useEffect(() => {
     if (isLoaded && center) {
       const service = new window.google.maps.places.PlacesService(document.createElement('div'))
-      service.nearbySearch({
-        location: center,
-        radius: 5000,
-        type: 'hospital'
-      }, (results, status) => {
-        if (status === 'OK') {
-          setHospitals(results)
-        } else {
-          console.error(status)
+      service.nearbySearch(
+        {
+          location: center,
+          radius: 5000,
+          type: 'hospital',
+        },
+        (results, status) => {
+          if (status === 'OK') {
+            const hospitalsWithLinks = results.map((result) => {
+              const link = `https://www.google.com/maps/place/?q=place_id:${result.place_id}`
+              return { ...result, link }
+            })
+            setHospitals(hospitalsWithLinks)
+          } else {
+            console.error(status)
+          }
         }
-      })
+      )
     }
   }, [isLoaded, center])
 

@@ -1,52 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useReactToPrint } from 'react-to-print';
-import jsPDF from 'jspdf';
+import Logo from "../assets/logo-light.png"
 
-const AppointmentSlip = ({ name, email, phone, hospitalName, hospitalAddress, specialist }) => {
+const AppointmentSlip = ({ date, time, name, email, phone, department, hospital, address, link }) => {
   const componentRef = React.useRef();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.text(`Name: ${name}`, 10, 10);
-    doc.text(`Email: ${email}`, 10, 20);
-    doc.text(`Phone: ${phone}`, 10, 30);
-    doc.text(`Hospital Name: ${hospitalName}`, 10, 40);
-    doc.text(`Hospital Address: ${hospitalAddress}`, 10, 50);
-    doc.text(`Specialist: ${specialist}`, 10, 60);
-    doc.save('appointment_slip.pdf');
-  };
-
+  useEffect(() => {
+    handlePrint()
+  }, [])
   return (
-    <div className="p-4 border rounded-md" ref={componentRef}>
-      <h2 className="text-2xl font-semibold mb-4">Appointment Slip</h2>
-      <div className="mb-4">
-        <span className="font-semibold">Name:</span> {name}
+    <div className="p-14 font-workSans" ref={componentRef}>
+      <img src={Logo} alt="Logo" className='h-14' />
+      <div className="flex">
+        <div className="ml-auto">
+            <h4 className="text-xl font-semibold">
+                Date: <span className="font-medium text-gray-500 text-lg">{date}</span>
+            </h4>
+            <h4 className="text-xl font-semibold">
+                Time: <span className="font-medium text-gray-500 text-lg">{time}</span>
+            </h4>
+        </div>
       </div>
-      <div className="mb-4">
-        <span className="font-semibold">Email:</span> {email}
+      <h4 className='text-center text-4xl font-black mt-10'>Appointment Slip</h4>
+      <div className="mt-8">
+        <h4 className="text-3xl font-bold">Name:</h4>
+        <p className="mt-1 text-gray-500 text-xl font-semibold">{name}</p>
       </div>
-      <div className="mb-4">
-        <span className="font-semibold">Phone:</span> {phone}
+      <div className="mt-8">
+        <h4 className="text-3xl font-bold">Email:</h4>
+        <p className="mt-1 text-gray-500 text-xl font-semibold">{email}</p>
+      </div>    
+      <div className="mt-8">
+        <h4 className="text-3xl font-bold">Phone:</h4>
+        <p className="mt-1 text-gray-500 text-xl font-semibold">{phone}</p>
       </div>
-      <div className="mb-4">
-        <span className="font-semibold">Hospital Name:</span> {hospitalName}
+      <div className="mt-8">
+        <h4 className="text-3xl font-bold">Department:</h4>
+        <p className="mt-1 text-gray-500 text-xl font-semibold">{department}</p>
       </div>
-      <div className="mb-4">
-        <span className="font-semibold">Hospital Address:</span> {hospitalAddress}
-      </div>
-      <div className="mb-4">
-        <span className="font-semibold">Specialist:</span> {specialist}
-      </div>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded-md mr-4" onClick={handlePrint}>
-        Print
-      </button>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded-md" onClick={generatePDF}>
-        Download PDF
-      </button>
+        <div className="mt-8">
+            <h4 className="text-3xl font-bold">Hospital:</h4>
+            <p className="mt-1 text-gray-500 text-xl font-semibold">{hospital}</p>
+        </div>
+        <div className="mt-8">
+            <h4 className="text-3xl font-bold">Hospital Address:</h4>
+            <a href={link} className="mt-1 text-gray-500 text-xl font-semibold hover:text-gray-700">{address}</a>
+        </div>
     </div>
   );
 };

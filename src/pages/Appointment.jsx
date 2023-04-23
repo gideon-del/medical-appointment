@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import InputBox from "../components/shared/InputBox";
-import { hospital, medicalDepartment } from "../data/medical_department";
-import { stateOptions } from "../data/stateOptions";
-import Selectss from "../components/shared/Selectss";
+import { medicalDepartment } from "../data/medical_department";
 import { Controller, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext, useAuth } from "../store/AuthContext";
@@ -13,7 +11,6 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { validateAppoint } from "../lib/validation";
 import RequireAuth from "../components/RequireAuth";
 import { taoster } from "../lib/toaster";
-import { useEffect } from "react";
 // TODO::1. Medical department, hospital, specialist physician, date and time of appointment
 const Appointment = () => {
   const [isClearable, setIsClearable] = useState(true);
@@ -28,40 +25,12 @@ const Appointment = () => {
     useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const handleStateChange = (option) => {
-    const state = stateOptions.find((state) => state.value === option.value);
-    setSelectedState(state);
-    setSelectedArea(null);
-  };
-  const handleAreaChange = (option) => {
-    setSelectedArea(option);
-  };
-
-  const handleMedicalDepartmentChange = (option) => {
-    const department = medicalDepartment.find(
-      (department) => department.name === option.name
-    );
-    setSelectedDepartment(department);
-  };
-
-  const handleHospitalChange = (option) => {
-    setSelectedHospital(option);
-  };
-
-  const stateSelectOptions = stateOptions.map((state) => ({
-    value: state.value,
-    label: state.label,
-  }));
 
   const departmentSelectOptions = medicalDepartment.map((department) => ({
     value: department.name.toLowerCase(),
     label: department.name,
   }));
 
-  const hospitalSelectOptions = hospital.map((hospital) => ({
-    value: hospital.name.toLowerCase(),
-    label: hospital.name,
-  }));
   if (appointments.length > 0) {
     let canMakeAppointMent = validateAppoint(
       appointments[appointments.length - 1]
@@ -69,7 +38,7 @@ const Appointment = () => {
     if (!canMakeAppointMent) {
       taoster({
         state: "error",
-        message: "You  must wait 15 Minute to make another appointment",
+        message: "You must wait 15 Minute to make another appointment",
       });
       return <Navigate to="/profile" />;
     }
@@ -89,27 +58,20 @@ const Appointment = () => {
         appointments: [...appointments, appointment],
       });
       setAppointmets((prev) => [...prev, appointment]);
-
       navigate("/profile");
       setLoading(false);
     } catch (error) {}
   };
   return (
     <RequireAuth>
-      <section className="bg-[#E2E8F0] min-h-screen w-full pt-10 font-workSans">
-        <div className="text-center">
-          <h1 className="md:text-3xl text-2xl text-black font-semibold">
-            Doctor Appointment Form
-          </h1>
-        </div>
-
-        <hr className="my-2" />
-
-        {/* form to handle the request for appointment */}
+      <section className="bg-[#E2E8F0] min-h-screen w-full px-4 py-10 md:py-14 font-workSans">
         <form
-          className="md:px-28 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2 bg-white rounded-2xl"
+          className="md:px-28 md:py-8 max-w-4xl mx-auto flex flex-col gap-4 w-fit px-4 py-2 bg-white rounded-2xl shadow-2xl"
           onSubmit={handleSubmit(submitHandler)}
         >
+          <h1 className="md:text-3xl text-2xl text-black font-semibold text-center">
+            Appointment Form
+          </h1>
           <div className="flex flex-col gap-4">
             <label
               className="block md:inline text-gray-700 font-bold mb-2 mr-6"
@@ -150,6 +112,27 @@ const Appointment = () => {
                 />
               )}
               defaultValue={selectedHospital.vicinity}
+            />
+          </div>
+          <div className="flex flex-col gap-4 hidden">
+            <label
+              className="block md:inline text-gray-700 font-bold mb-2 mr-6"
+              htmlFor="state-select"
+            >
+              Hospital Link
+            </label>
+            <Controller
+              name="link"
+              control={control}
+              render={({ field: { value } }) => (
+                <input
+                  type="text"
+                  className="p-2 rounded text-white font-semibold bg-gray-500"
+                  value={selectedHospital?.link}
+                  disabled
+                />
+              )}
+              defaultValue={selectedHospital.link}
             />
           </div>
           <div className="flex flex-col w-fit max-auto rounded gap-8 ">

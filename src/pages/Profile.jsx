@@ -3,7 +3,6 @@ import { FaEdit } from "react-icons/fa";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import { AuthContext } from "../store/AuthContext";
-import AppoinmentCard from "../components/AppointmentCard";
 import {
   convertUnixTimestamp,
   dateToUnix,
@@ -54,10 +53,20 @@ const Profile = () => {
                   <h4 className="text-lg text-black font-bold mt-4 font-poppins">
                     Appointments
                   </h4>
-                  <h4 className="text-5xl font-bold text-black mx-auto px-6 w-max border border-t-black">
-                    {upcoming?.length}
-                  </h4>
-                  <p className="text-gray-400">Upcoming</p>
+                  <div className="flex justify-center">
+                    <div>
+                      <h4 className="text-5xl font-bold text-black mx-auto px-6 w-max border border-t-black">
+                        {upcoming?.length}
+                      </h4>
+                      <p className="text-gray-400">Upcoming</p>
+                    </div>
+                    <div>
+                      <h4 className="text-5xl font-bold text-black mx-auto px-6 w-max border border-t-black">
+                        {past?.length}
+                      </h4>
+                      <p className="text-gray-400">Past</p>
+                    </div>
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-5 px-6 w-full md:w-3/5 mt-5 md:mt-0 md:border-l md:border-gray-500">
                   <div>
@@ -90,7 +99,7 @@ const Profile = () => {
                       Marital Status
                     </h4>
                     <p className="mt-1 mb-1.5 font-semibold text-black truncate">
-                      {profile?.maritalStatus}
+                      {capitalizeWords(profile?.maritalStatus)}
                     </p>
                     <hr />
                   </div>
@@ -130,19 +139,19 @@ const Profile = () => {
             <div className="w-full lg:w-1/3 bg-white rounded-2xl p-5">
               <h4 className="text-black text-2xl font-bold ">Payments</h4>
               <div className="flex items-center justify-center text-black h-72 text-3xl font-bold">
-                <AppointmentSlip />
+                Coming Soon
               </div>
             </div>
           </div>
           <div className="mt-10 bg-white rounded-2xl text-black p-7">
             <div className="flex flex-col mx-auto md:flex-row md:justify-between">
-              <div className="bg-gray-300 p-1.5 rounded-2xl w-full md:w-max">
+              <div className="sm:flex bg-gray-300 p-1.5 rounded-2xl w-full md:w-max">
                 {["Upcoming Appoinments", "Past Appoinments"].map((type) => {
                   return (
                     <button
                       key={type}
                       onClick={() => setAppointmentType(type)}
-                      className={`w-full md:w-max mx-2.5 rounded-2xl font-semibold px-5 py-3
+                      className={`w-full md:mx-2.5 rounded-2xl text-md font-semibold md:px-5 py-3 truncate
                     ${
                       appointmentType === type
                         ? "bg-white text-blue-500"
