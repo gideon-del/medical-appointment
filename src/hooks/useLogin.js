@@ -33,7 +33,7 @@ const useLogin =  (type = 'signup') => {
         });
         taoster({ state: "success", message: "Welcome" });
   
-        navigate("/create");
+        navigate("/edit");
     }
 return type==='login'? loginUser : signup
 }
