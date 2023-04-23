@@ -39,11 +39,12 @@ const Profile = () => {
               </div>
               <div className="md:flex mt-5">
                 <div className="w-full md:w-2/5 text-center">
-                  <img
-                    src="https://leadership.ng/wp-content/uploads/2023/03/davido.png"
+                  <div
                     alt="Profile Icon"
-                    className="w-24 h-24 rounded-full mx-auto"
-                  />
+                    className="w-24 h-24 rounded-full mx-auto text-8xl font-black bg-orange-500 text-white"
+                  >
+                    {profile?.name.charAt(0)}
+                  </div>
                   <h4 className="text-2xl font-bold text-black truncate mt-2">
                     {profile?.name}
                   </h4>

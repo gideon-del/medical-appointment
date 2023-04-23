@@ -31,10 +31,11 @@ const MedicalProfile = () => {
             <h4 className="text-black my-auto text-2xl font-semibold">
               Edit Profile
             </h4>
-            <img
-              src="https://leadership.ng/wp-content/uploads/2023/03/davido.png"
-              className="w-16 h-16 rounded-full"
-            />
+            <div
+              className="w-16 h-16 rounded-full bg-orange-500 text-6xl font-semibold text-center text-white"
+            >
+              {prof?.name.charAt(0)}
+            </div>
           </div>
           <form className="py-14" onSubmit={handleSubmit(submit)}>
             <div className="sm:flex sm:gap-14">
