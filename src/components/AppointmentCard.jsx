@@ -1,18 +1,21 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import AppointmentSlip from "../components/AppointmentSlip"
+import { useReactToPrint } from 'react-to-print';
 import { BiDownload } from "react-icons/bi"
 import { AuthContext } from "../store/AuthContext";
-import { profile } from "../store/AuthContext"
 
 export default function AppoinmentCard({ date, time, hospital, department, address, link }) {
-    const generatePdf = (pdfFunc) => {
-        pdfFunc()
-    }
+    const { profile } = useContext(AuthContext)
+    const componentRef = useRef();
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
     return (
         <div className="flex flex-wrap bg-white rounded-2xl py-2 md:px-4 my-6 md:h-48">
             <div 
                 className="hidden lg:block cursor-pointer lg:border-r lg:border-r-gray-400 px-5 lg:px-10 md:my-auto"s
-                onClick={generatePdf}
+                onClick={handlePrint}
             >
                 <BiDownload
                     size="30px"
@@ -37,16 +40,16 @@ export default function AppoinmentCard({ date, time, hospital, department, addre
             </div>
             <div class="opacity-0 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg h-0.5 w-0.5">
                 <AppointmentSlip
-                    name={profile?.name}
-                    email={profile?.email}
-                    phone={profile?.phoneNumber}
+                    name={profile.name}
+                    email={profile.email}
+                    phone={profile.phoneNumber}
                     date={date}
                     time={time}
                     hospital={hospital}
                     department={department}
                     address={address}
                     link={link}
-                    onClick={generatePdf}
+                    componentRef={componentRef}
                 />
             </div>
         </div>

@@ -1,15 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
+import React from 'react';
 import Logo from "../assets/logo-light.png"
 
-const AppointmentSlip = ({ date, time, name, email, phone, department, hospital, address, link, onClick }) => {
-  const componentRef = useRef();
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
-  onClick(handlePrint)
+const AppointmentSlip = ({ date, time, name, email, phone, department, hospital, address, link, componentRef }) => {
   return (
     <div className="p-14 font-workSans" ref={componentRef}>
       <img src={Logo} alt="Logo" className='h-14' />
