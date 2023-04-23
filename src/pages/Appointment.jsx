@@ -58,6 +58,7 @@ const Appointment = () => {
         appointments: [...appointments, appointment],
       });
       setAppointmets((prev) => [...prev, appointment]);
+      taoster({ state: "success", message: "Appointment created" });
       navigate("/profile");
       setLoading(false);
     } catch (error) {}
